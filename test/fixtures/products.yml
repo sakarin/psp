@@ -1,0 +1,53 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  code: MyString
+  type: 1
+  customer_id: 1
+  name: MyString
+  print_color: MyString
+  pump: 1
+  pump_line: 1
+  glue_id: 1
+  paper: MyString
+  thick: MyString
+  cut_id: 1
+  size: MyString
+  width: MyString
+  high: MyString
+  side: MyString
+  cut_unit: MyString
+  coat_id: 1
+  mouth_id: 1
+  bottom: MyString
+  ear_id: 1
+  ear_number: MyString
+  ear_long: MyString
+  ear_unit: MyString
+  comment: MyText
+
+two:
+  code: MyString
+  type: 1
+  customer_id: 1
+  name: MyString
+  print_color: MyString
+  pump: 1
+  pump_line: 1
+  glue_id: 1
+  paper: MyString
+  thick: MyString
+  cut_id: 1
+  size: MyString
+  width: MyString
+  high: MyString
+  side: MyString
+  cut_unit: MyString
+  coat_id: 1
+  mouth_id: 1
+  bottom: MyString
+  ear_id: 1
+  ear_number: MyString
+  ear_long: MyString
+  ear_unit: MyString
+  comment: MyText

@@ -1,0 +1,64 @@
+<script type="text/javascript">
+    //Cufon.replace('#menu li',{hover:true});
+    Cufon.replace('.menu-head-content', {hover:true});
+    Cufon.replace('.menu-head-content-status-label', {hover:true});
+    Cufon.replace('.tabel-data-thead', {hover:true});
+    Cufon.replace('.buttons', {hover:true});
+
+    Cufon.replace('label', {hover:true});
+
+</script>
+
+<div class="menu-head-content">
+  <ul>
+    <li><a href="#"><strong>รายชื่อผู้ใช้งาน</strong></a></li>
+  </ul>
+</div>
+<div class="menu-head-content-label">USER LIST</div>
+
+<div style="margin-top:10px;margin-bottom:10px; height:30px;">
+  <div style="height:25px; float:left;">
+        <span class="buttons">
+            <a href="<%= new_user_registration_path %>" id="btn-add" class="negative" style="float:left;">
+              <img src="images/icons/new.png" alt=""/>
+              <b>เพิ่มผู้ใช้</b>
+            </a>
+        </span>
+  </div>
+</div>
+<div id="tabel-data-warper">
+  <table border="0" cellpadding="0" cellspacing="0" id="tabel-data">
+    <thead class="tabel-data-thead">
+    <tr height="30px">
+      <th style="min-width: 80px;">ชื่อผู้ใช้</th>
+      <th style="min-width: 300px;">ชื่อ</th>
+      <th style="min-width: 180px;">อีเมล์</th>
+      <th style="min-width: 180px;">สร้างเมื่อ</th>
+      <th style="min-width: 180px;">เข้าใช้งานล่าสุด</th>
+      <th style="min-width: 180px;">ไอพี</th>
+
+    </tr>
+    </thead>
+
+
+    <tbody class="tabel-data-body">
+    <% @users.each do |user| %>
+        <tr class="<%= cycle("tr-odd", "tr-even") %>">
+          <td class="column-border" style=" text-align: center;"><%= user.username %></td>
+          <td class="column-border"><%= user.name %></td>
+          <td class="column-border"><%= user.email %></td>
+          <td class="column-border" style="text-align: center;"><%= I18n.l(user.created_at, :format => :long) %></td>
+          <td class="column-border" style="text-align: center;"><%= I18n.l(user.last_sign_in_at, :format => :long) %></td>
+          <td class="column-border" style="text-align: center;"><%= user.current_sign_in_ip %></td>
+        </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+
+</div>
+<div id="paginate" style="padding-left: 0px; padding-top: 5px;">
+  <%#= will_paginate @users %>
+</div>
+
+

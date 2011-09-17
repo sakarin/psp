@@ -1,0 +1,50 @@
+
+<script type="text/javascript">
+	 //Cufon.replace('#menu li',{hover:true});
+	 Cufon.replace('.menu-head-content',{hover:true});
+	 Cufon.replace('.menu-head-content-status-label',{hover:true});
+	 Cufon.replace('.tabel-data-thead',{hover:true});
+	 Cufon.replace('.button-box',{hover:true});
+     Cufon.replace('.negative',{hover:true});
+
+
+	//for id
+	 Cufon.replace('.label',{hover:true});
+
+
+</script>
+  <%#= form_for(@receive_product,  :url => admin_purchase_receive_product_path(@purchase, @receive_product), :html => { :method => :put }) do |f| %>
+  <%= form_for(@stock, :url => new_order_stock_path(@order, @stock), :html => { :method => :put , :id => "new_stock_form"} ,:remote => true) do |f| %>
+
+    <div class="menu-head-content">
+        <p><a href="#"><strong>จำนวนที่นำเข้าคลัง</strong></a>
+	</div>
+
+
+
+	<% @stock.errors.full_messages.each do |msg| %>
+        <li style="list-style: none;font-size: 12px;padding-left: 7px;color: #990000;font-weight: bold;"><%= msg %></li>
+    <% end %>
+
+	<!-- begin form-->
+	<div class="form" style="padding-top: 0px;padding-left: 7px;">
+		<ul>
+            <li>
+               <span class="label">โรงงาน : </span> <%= f.select("factory_id", @factories.collect { |u| [u.name, u.id] }) %>
+			</li>
+			<li>
+               <span class="label">จำนวน : </span>  <%= f.text_field :quantity , :size => 20 %>
+			</li>
+
+			<li>
+            <%= render "shared/fancybox_toolbar" %>
+
+
+			</li>
+		</ul>
+	</div>
+
+
+<% end %>
+
+

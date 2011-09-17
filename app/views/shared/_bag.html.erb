@@ -1,0 +1,31 @@
+<b><%= product.name %></b>
+<ul style="margin-left: 10px;">
+  <li><%= "- พิมพ์ #{product.print_color} สี" unless product.print_color.blank? %></li>
+  <li><%= "- ปั้มพิเศษ #{product.pump.name}" unless product.pump.blank? %></li>
+  <li><%= "- ปั้มเส้นพับ #{product.pump_line.name}" unless product.pump_line.blank? %></li>
+  <li><%= "- กระดาษ #{product.paper}" unless product.paper.blank? %>  <%= ", ความหนา #{product.thick} ซ.ม." unless product.thick.blank? %></li>
+  <li><%#= "- ขนาด #{product.size}" unless product.size.blank? %></li>
+  <li><%= "- ตัด #{product.cut.name}" unless product.cut.blank? %></li>
+
+  <li>
+    <%= "- กว้าง #{product.width}" unless product.width.blank? %>
+    <%= ", สูง #{product.high}" unless product.high.blank? %>
+    <%= ", พับข้าง #{product.side}" unless product.side.blank? %>
+    <%= " #{product.cut_unit}" unless product.cut_unit.blank? %>
+  </li>
+
+  <li><%= "- เคลือบ #{product.coat.name}" unless product.coat.blank? %></li>
+  <li><%= "- ขนาดปากถุง #{product.mouth.name}" unless product.mouth.blank? %></li>
+
+  <li><%= "- รองก้น #{product.bottom}" unless product.bottom.blank? %></li>
+
+  <li>
+    <%= "- หูเชือก #{product.ear}" unless product.ear.blank? %>
+    <%= ", No. #{product.ear_number}" unless product.ear_number.blank? %>
+    <%= ", ยาว #{product.ear_long}" unless product.ear_long.blank? %>
+    <%= " #{product.ear_unit}" unless product.ear_unit.blank? %>
+  </li>
+
+  <li><%= "- หมายเหตุ #{product.comment}" unless product.comment.blank? %></li>
+</ul>
+

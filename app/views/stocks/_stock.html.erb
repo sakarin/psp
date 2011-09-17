@@ -1,0 +1,43 @@
+
+<div id="tabel-data-warper">
+    <table border="0" cellpadding="0" cellspacing="0" id="tabel-data">
+        <thead class="tabel-data-thead">
+            <tr height= "30px">
+              <th style="min-width: 80px;">เลขที่ใบสั่ง</th>
+              <th style="min-width: 300px;">ชนิดงาน</th>
+              <th style="min-width: 150px;">ชื่อลูกค้า</th>
+              <th style="min-width: 80px;">จำนวนงาน<br/>ที่ต้องการ</th>
+              <th style="min-width: 80px;">จำนวนงาน<br/>ที่มีแล้ว</th>
+              <th style="min-width: 80px;">จำนวนงาน<br/>ที่ต้องการเพิ่ม</th>
+              <th style="min-width: 80px;">จำนวนงาน<br/>ที่มีในคลัง</th>
+              <th style="min-width: 80px;">สถานะ</th>
+
+            </tr>
+        </thead>
+
+        <tbody class="tabel-data-body">
+            <% @orders.each do |order| %>
+            <tr class="<%= cycle('tr-odd','tr-even') %>" onclick="location.href='<%= order_stock_path(order, '1') %>'">
+              <td class="column-border" style="min-width: 80px;text-align: center;"><%= order.number%></td>
+              <td class="column-border" style="min-width: 300px;"><%= order.product.name %></td>
+              <td class="column-border" style="min-width: 150px;"><%= order.customer.name %></td>
+              <td class="column-border" style="min-width: 80px;text-align: center;"><%= number_with_delimiter(order.quantity) %></td>
+              <td class="column-border" style="min-width: 80px;text-align: center;"><%= number_with_delimiter(order.stocks.sum(:quantity)) %></td>
+              <td class="column-border" style="min-width: 80px;text-align: center;"><%= number_with_delimiter(order.quantity - order.stocks.sum(:quantity)) %></td>
+              <td class="column-border" style="min-width: 80px;text-align: center;" id="hilight"><%= number_with_delimiter(order.stocks.sum(:quantity) - order.sents.sum(:quantity)) %></td>
+              <td class="column-border" style="min-width: 80px;text-align: center;">
+                <% if order.stock_flag == 1 %>
+                    <font color="green"><%= t('state.complete') %></font>
+                <% else %>
+                   <font color="red"><%= t('state.uncomplete') %></font>
+                <% end %>
+              </td>
+
+            </tr>
+            <% end %>
+
+
+        </tbody>
+    </table>
+
+</div>

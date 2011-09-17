@@ -1,0 +1,84 @@
+<script type="text/javascript">
+
+    Cufon.replace('.menu-head-content', {hover:true});
+    Cufon.replace('.menu-head-content-status-label', {hover:true});
+    Cufon.replace('.tabel-data-thead', {hover:true});
+    Cufon.replace('.buttons', {hover:true});
+
+    Cufon.replace('label', {hover:true});
+
+</script>
+
+
+<div class="menu-head-content">
+  <ul>
+    <li><a href="<%= factories_path %>"><strong>รายการโรงงาน</strong></a></li>
+  </ul>
+</div>
+<div class="menu-head-content-label">FACTORY</div>
+<div style="margin-bottom:10px; height:30px;">
+  <div style="height:25px;">
+    <span class="buttons">
+        <a href="<%= new_factory_path %>" id="btn-add" class="negative" style="float:left;">
+          <%= image_tag "icons/new.png" %>
+          <b>เพิ่มโรงงาน</b>
+        </a>
+    </span>
+
+    <div class="search">
+      <% form_tag factories_path, :method => 'get' do %>
+          <%= text_field_tag :search, params[:search], :placeholder => 'กรอกชื่อโรงงานที่ต้องการค้นหา...' %>
+          <%= submit_tag "ค้นหา", :name => nil %>
+      <% end %>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div id="tabel-data-warper">
+  <table border="0" cellpadding="0" cellspacing="0" id="tabel-data">
+    <thead class="tabel-data-thead">
+    <tr height="30px">
+      <th style="min-width: 80px;">ลำดับที่</th>
+      <th style="min-width: 300px;">ชื่อโรงงาน</th>
+      <th style="min-width: 180px;">ชื่อผู้ประสานงาน</th>
+
+
+      <!--<th style="min-width: 180px;"></th>-->
+    </tr>
+    </thead>
+
+
+    <tbody class="tabel-data-body">
+    <% @factories.each do |factory| %>
+        <tr class="<%= cycle('tr-odd', 'tr-even') %>" onclick="location.href='<%=   edit_factory_path(factory) %>'">
+          <td class="column-border" style="min-width: 80px;text-align: center;"><%= factory.code %></td>
+          <td class="column-border" style="min-width: 300px;"><%= factory.name %></td>
+          <td class="column-border" style="min-width: 70px;width: 180px;text-align: center;"><%= factory.collaborator %></td>
+
+          <!--<td class="column-border" style="min-width: 70px;width: 180px;text-align: center;">-->
+          <!--<span class="">-->
+
+
+          <!--<%= link_to 'รายละเอียด', factory %>-->
+
+          <!--</span>-->
+          <!--<span style="padding-left: 10px;">-->
+
+          <!--<%= link_to 'แก้ไข', edit_factory_path(factory) %>-->
+
+          <!--</span>-->
+          <!--</td>-->
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+</div>
+
+
+<div id="paginate" style="padding-left: 0px; padding-top: 5px;">
+  <%= will_paginate @factories %>
+</div>

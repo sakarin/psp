@@ -1,0 +1,11 @@
+ <b><%= product.name %></b>
+<ul style="margin-left: 10px;">
+  <li><%= "- พิมพ์ #{product.print_color} สี" unless product.print_color.blank? %></li>
+  <li><%= "- ปั้มพิเศษ #{product.pump.name}" unless product.pump.blank? %></li>
+  <li><%= "- กระดาษ #{product.paper}" unless product.paper.blank? %>  <%= ", ความหนา #{product.thick} ซ.ม." unless product.thick.blank? %></li>
+  <li><%= "- ขนาด #{product.size}" unless product.size.blank? %></li>
+  <li><%= "- เคลือบ #{product.coat.name}" unless product.coat.blank? %></li>
+  <li><%= "- รองก้น #{product.bottom}" unless product.bottom.blank? %></li>
+  <li><%= "- หมายเหตุ #{product.comment}" unless product.comment.blank? %></li>
+</ul>
+

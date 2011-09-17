@@ -1,0 +1,56 @@
+<script type="text/javascript">
+    //Cufon.replace('#menu li',{hover:true});
+    Cufon.replace('.menu-head-content', {hover:true});
+    Cufon.replace('.menu-head-content-status-label', {hover:true});
+    Cufon.replace('.tabel-data-thead', {hover:true});
+    Cufon.replace('.buttons', {hover:true});
+
+    Cufon.replace('label', {hover:true});
+
+</script>
+
+<div class="menu-head-content">
+  <ul>
+    <li><a href="#"><strong>รายการบันทึกการใช้งานย้อนหลัง</strong></a></li>
+  </ul>
+</div>
+<div class="menu-head-content-label">HISTORY</div>
+
+<div style="margin-top:10px;margin-bottom:10px; height:30px;">
+
+  <div id="tabel-data-warper">
+    <table border="0" cellpadding="0" cellspacing="0" id="tabel-data">
+      <thead class="tabel-data-thead">
+      <tr height="30px">
+        <th style="min-width: 80px;">วัน-เวลา</th>
+        <th style="min-width: 300px;">ชื่อผู้ใช้</th>
+        <th style="min-width: 180px;">ไอพี</th>
+        <th style="min-width: 180px;">ชื่อระบบ</th>
+        <th style="min-width: 180px;">การดำเนินการ</th>
+
+
+      </tr>
+      </thead>
+
+
+      <tbody class="tabel-data-body">
+      <% @logs.each do |log| %>
+          <tr class="<%= cycle("tr-odd", "tr-even") %>">
+            <td class="column-border" style=" text-align: center;"><%= I18n.l(log.created_at, :format => :long) %></td>
+            <td class="column-border"><%= log.user %></td>
+            <td class="column-border"><%= log.ip %></td>
+            <td class="column-border" style="text-align: center;"><%= log.system %></td>
+            <td class="column-border" style="text-align: center;"><%= log.action %></td>
+
+          </tr>
+      <% end %>
+
+      </tbody>
+    </table>
+
+  </div>
+  <div id="paginate" style="padding-left: 0px; padding-top: 5px;">
+    <%#= will_paginate @users %>
+  </div>
+</div>
+

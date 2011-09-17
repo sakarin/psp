@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  order_id: 1
+  factory_id: 1
+  quantity: 1
+  state: MyString
+
+two:
+  order_id: 1
+  factory_id: 1
+  quantity: 1
+  state: MyString

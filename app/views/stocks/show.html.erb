@@ -1,0 +1,136 @@
+<%= javascript_include_tag "fancybox/jquery.mousewheel-3.0.2.pack.js" %>
+<%= javascript_include_tag "fancybox/jquery.fancybox-1.3.1.js" %>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("a#new_stock").fancybox({
+            'width'                : 300,
+            'height'            : 150,
+            'autoScale'            : true,
+            'transitionIn'        : 'none',
+            'transitionOut'        : 'none',
+            'type'                : 'iframe',
+            'scrolling'            : 'no',
+            'title'            : 'เพิ่มจำนวนสินค้าที่ผลิตเสร็จแล้วเข้าคลัง',
+
+            'onClosed': function() {
+                parent.location.reload(true);
+                $("#fancybox-wrap, #fancybox-overlay").delay(3000).fadeOut();
+            }
+        });
+    });
+</script>
+
+
+<div class="menu-head-content">
+  <ul>
+    <li><a href="#"><strong>คลังสินค้า</strong></a></li>
+    <li>|</li>
+    <li><a href="#"><b>นำสินค้าเข้าคลัง</b></a></li>
+  </ul>
+</div>
+<div class="menu-head-content-label">PRODUCT INCOMMING</div>
+
+<!-- begin form-->
+<div class="form" style="padding-top: 10px;">
+  <ul>
+    <li>
+      <p>
+        <label class="label-form" for="ps_id"><span><b>เลขที่ :</b></span>
+          <input type="text" id="ps_id" size="20" value="<%= @order.number %>" readonly="readonly" class="text_lock"/>
+        </label>
+      </p>
+    </li>
+    <li>
+      <p>
+        <label class="label-form" for="customer_name"><span><b>ชื่อลูกค้า :</b></span>
+          <input type="text" id="ps_id" size="50" value="<%= @order.customer.name %>" readonly="readonly" class="text_lock"/>
+        </label>
+      </p>
+    </li>
+    <li>
+      <p>
+        <label class="label-form" for="form"><span><b>ชนิดถุง :</b></span>
+          <input type="text" id="ps_id" size="50" value="<%= @order.product.name %>" readonly="readonly" class="text_lock"/>
+        </label>
+      </p>
+    </li>
+    <li>
+      <p>
+        <label class="label-form" for="form"><span><b>จำนวนที่ต้องการ :</b></span>
+          <input type="text" size="20" value="<%= number_with_delimiter(@order.quantity) %>" readonly="readonly" class="text_lock"/>
+        </label>
+      </p>
+    </li>
+    <li>
+      <p>
+        <label class="label-form" for="form"><span><b>จำนวนที่มีในคลัง :</b></span>
+          <input type="text" size="20" value="<%= number_with_delimiter(@order.product.quantity) %>" readonly="readonly" class="text_lock"/>
+        </label>
+      </p>
+    </li>
+    <li>
+      <p>
+        <label class="label-form" for="form"><span><b>สถานะ :</b></span>
+
+          <% if @order.stock_flag == 1 %>
+              <font color="green"><%= t('state.complete') %></font>
+          <% else %>
+              <font color="red"><%= t('state.uncomplete') %></font>
+          <% end %>
+
+        </label>
+      </p>
+    </li>
+  </ul>
+</div>    <!-- end form -->
+
+
+<div id="tabel-data-warper" style="padding-top: 10px; padding-left: 100px;">
+  <table border="0" cellpadding="0" cellspacing="0" id="tabel-data" style="min-width: 500px;width: 500px;">
+    <thead class="tabel-data-thead">
+    <tr height="30px">
+      <th style="min-width: 80px;">ลำดับ</th>
+      <th style="min-width: 80px;">วันที่</th>
+      <th style="min-width: 80px;">โรงงาน</th>
+      <th style="min-width: 80px;">จำนวนงาน</th>
+
+
+
+    </tr>
+    </thead>
+    <tbody class="tabel-data-body">
+    <% @stocks.each do |stock| %>
+        <tr class="tr-odd">
+          <td class="column-border" style="min-width: 80px;text-align: center;"><%= @stocks.rindex(stock) + 1 %></td>
+          <td class="column-border" style="min-width: 80px;text-align: center;"><%= I18n.l(stock.created_at, :format => :long) %></td>
+           <td class="column-border" style="min-width: 80px;text-align: center;"><%= stock.factory.name %></td>
+          <td class="column-border" style="min-width: 80px;text-align: center;"><%= number_with_delimiter(stock.quantity) %></td>
+
+
+        </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+</div><!-- tabel-data-warper -->
+
+
+
+ <% if @order.stock_flag == 0 %>
+<div style="height:25px;padding-top:10px;margin-left: 100px;">
+
+    <span class="buttons">
+
+        <a href="<%= new_order_stock_path %>" class="negative" style="float:left;" id="new_stock">
+          <%= image_tag "icons/new.png" %>
+          <b>เพิ่มรายการ</b>
+        </a>
+    </span>
+
+</div>
+<% end %>
+
+
+
+

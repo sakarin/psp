@@ -1,0 +1,93 @@
+<script type="text/javascript">
+
+    Cufon.replace('.menu-head-content', {hover:true});
+    Cufon.replace('.menu-head-content-status-label', {hover:true});
+    Cufon.replace('.tabel-data-thead', {hover:true});
+    Cufon.replace('.buttons', {hover:true});
+    Cufon.replace('label', {hover:true});
+
+</script>
+
+<div class="menu-head-content">
+  <ul>
+    <li><a href="#"><strong>รายการสินค้า</strong></a></li>
+  </ul>
+</div>
+<div style="margin-bottom:10px; padding-left:5px; height:30px;">
+
+  <div class="search">
+
+
+    <%= form_tag products_path, :method => 'get' do %>
+
+        <%= select_tag(:search_type, options_for_select({"ชื่องาน" => "1", "ชื่อลูกค้า" => "2"}, params[:search_type])) %>
+        <%= text_field_tag :search, params[:search], :placeholder => 'ข้อความที่ต้องการค้นหา...' %>
+        <%= submit_tag "ค้นหา", :name => nil %>
+    <% end %>
+
+  </div>
+</div>
+<div id="tabel-data-warper">
+  <table border="0" cellpadding="0" cellspacing="0" id="tabel-data">
+    <thead class="tabel-data-thead">
+    <tr height="30px">
+      <th style="min-width: 80px;">ลำดับที่</th>
+      <th style="min-width: 180px;">วันที่</th>
+      <th style="min-width: 300px;">ชื่อลูกค้า</th>
+      <th style="min-width: 300px;">งาน</th>
+      <!--<th style="min-width: 180px;"></th>-->
+    </tr>
+    </thead>
+
+    <tbody class="tabel-data-body">
+    <% @products.each do |product| %>
+        <tr class="<%= cycle("tr-odd", "tr-even") %>" onclick="location.href='<%=  edit_product_path(product) %>'">
+          <td class="column-border" style="min-width: 80px;text-align: center;"><%= product.code %></td>
+          <td class="column-border" style="min-width: 70px;width: 180px;text-align: center;"><%= I18n.l(product.created_at, :format => :long) %></td>
+          <td class="column-border" style="min-width: 300px;"><%= product.customer.name %></td>
+          <td class="column-border" style="min-width: 300px;"><%= product.name %></td>
+          <!--<td class="column-border" style="min-width: 70px;width: 180px;text-align: center;"> -->
+          <!--<%= link_to 'รายละเอียด', product %>-->
+          <!--<%= link_to 'แก้ไข', edit_product_path(product) %>-->
+          <!--<%= link_to 'ลบ', product, :confirm => 'Are you sure?', :method => :delete %>-->
+          <!--</td> -->
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+</div>
+
+<div style="height:25px; padding-top:10px; margin-left: 5px;">
+          	<span class="buttons">
+          		<a href="/products/new/1" id="btn-add" class="negative" style="float:left;">
+                    <img src="/images/icons/new.png" alt=""/>
+                    <b>เพิ่มประเภทถุง</b>
+                  </a>
+          	</span>            	
+              <span class="buttons">
+          		<a href="/products/new/2" id="btn-add" class="negative" style="float:left;">
+                    <img src="/images/icons/new.png" alt=""/>
+                    <b>เพิ่มประเภทซอง</b>
+                  </a>
+          	</span>
+              <span class="buttons">
+          		<a href="/products/new/3" id="btn-add" class="negative" style="float:left;">
+                    <img src="/images/icons/new.png" alt=""/>
+                    <b>เพิ่มประเภทกล่อง</b>
+                  </a>
+          	</span>
+              <span class="buttons">
+          		<a href="/products/new/4" id="btn-add" class="negative" style="float:left;">
+                    <img src="/images/icons/new.png" alt=""/>
+                    <b>เพิ่มประเภทงานอื่นๆ</b>
+                  </a>
+          	</span>
+
+  <div id="paginate" style="padding-left: 0px; padding-top: 5px; float:left;">
+    <%= will_paginate @products %>
+  </div>
+</div>
+
+          
+

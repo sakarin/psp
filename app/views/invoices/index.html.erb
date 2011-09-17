@@ -1,0 +1,150 @@
+<div class="menu-head-content">
+  <ul>
+    <li><a href="#"><strong>การจัดส่งโรงงาน</strong></a></li>
+    <li>|</li>
+    <li><a href="#"><b>จัดส่งวัตถุดิบให้โรงงาน</b></a></li>
+  </ul>
+</div>
+<div class="menu-head-content-label">FACTORY SYSTEM</div>
+
+<!-- begin form-->
+<div style="height:25px;padding-top:10px;">
+
+    <span class="head-abel">
+       <b>รายการงานที่ต้องส่งให้โรงงาน</b>
+    </span>
+</div>
+<div class="form">
+  <table border="0" cellpadding="0" cellspacing="0" id="tabel-data">
+    <thead class="tabel-data-thead">
+    <tr height="30px">
+
+      <th style="min-width: 80px;">เลขที่ใบสั่งของ</th>
+      <th style="min-width: 300px;">ชนิดงาน</th>
+      <th style="min-width: 150px;">ชื่อลูกค้า</th>
+      <th style="min-width: 50px;">จำนวนงาน<br/>(ที่ลูกค้าสั่ง)</th>
+      <th style="min-width: 50px;">จำนวนงาน<br/>(ที่มีในคลัง)</th>
+      <th style="min-width: 50px;">จำนวนงาน<br/>(ที่ต้องขึ้นของ)</th>
+    </tr>
+    </thead>
+
+
+    <% count_order = false %>
+    <tbody class="tabel-data-body">
+    <% @orders.each do |order| %>
+        <% if order.quantity > order.line_items.sum(:quantity) and order.product.material > 0 %>
+            <% count_order = true %>
+            <tr class="tr-odd">
+
+              <td class="column-border" style="min-width: 80px;text-align: center;"><%= order.number %></td>
+              <td class="column-border" style="min-width: 300px;"><%= order.product.name %></td>
+              <td class="column-border" style="min-width: 150px;"><%= order.customer.name %></td>
+              <td class="column-border" style="min-width: 80px;text-align: center;">
+                <%= number_with_delimiter  order.quantity %>
+              </td>
+              <td class="column-border" style="min-width: 80px;text-align: center;">
+                <%= number_with_delimiter  order.product.material %>
+              </td>
+              <td class="column-border" style="min-width: 80px;text-align: center;" id="hilight">
+                <%= number_with_delimiter  order.quantity - (order.line_items.sum(:quantity)) %>
+                <%= hidden_field_tag "invoice[seek_quantity][#{order.id}]", "#{order.manufactures.sum(:quantity) - order.line_items.sum(:quantity)}" %>
+              </td>
+            </tr>
+        <% end %>
+    <% end %>
+
+
+    </tbody>
+
+  </table>
+</div>
+
+<% @factories.each do |factory| %>
+
+    <div style="height:25px;padding-top:10px;">
+
+    <span class="head-abel">
+
+       <b>โรงงาน : <%= factory.name %></b>
+
+
+    </span>
+      <% if count_order == true %>
+    <span class="buttons" style="float:right;padding-right: 0px;">
+        <a href="<%= "#{new_invoice_path}/#{factory.id}" %>" id="btn-add" class="negative" style="float:left;">
+          <%= image_tag "icons/new.png" %>
+          <b>ส่งงานให้โรงงาน <%= factory.name %></b>
+        </a>
+    </span>
+      <% end %>
+    </div>
+
+    <div class="factory">
+      <div id="tabel-data-warper" style="padding-top: 10px;">
+        <table border="0" cellpadding="0" cellspacing="0" id="tabel-data">
+          <thead class="tabel-data-thead">
+          <tr height="30px">
+            <th style="width: 180px;">วันที่</th>
+            <th style="min-width: 70px;">ใบส่งของเลขที่</th>
+            <th style="min-width: 100px;">ชื่อลูกค้า - งาน</th>
+            <th style="min-width: 80px;">จำนวนงานทั้งหมด(ที่ต้องขึ้นของ)</th>
+            <th style="min-width: 100px;">จำนวนงานทั้งหมด(ที่ขึ้นของไปแล้ว)</th>
+            <th style="min-width: 100px;">จำนวนงาน(ที่ต้องขึ้นของเพิ่ม)</th>
+            <th style="min-width: 40px;">สถานะ</th>
+
+          </tr>
+          </thead>
+          <tbody class="tabel-data-body">
+          <% stock_complete = 1 %>
+          <% factory.invoices.each do |invoice| %>
+
+              <% invoice.line_items.each do |line_item| %>
+                  <% if line_item.state == 0 %>
+                      <% stock_complete = 0 %>
+                  <% end %>
+              <% end %>
+
+              <% if stock_complete == 0 %>
+                  <tr class="<%= cycle('tr-odd', 'tr-even') %>" onclick="location.href='<%= edit_invoice_path(invoice) %>'">
+                    <td class="column-border" style="text-align: center;vertical-align: top;"><%= I18n.l(invoice.created_at, :format => :long) %></td>
+                    <td class="column-border" style="text-align: center;vertical-align: top;"><%= invoice.number %></td>
+                    <td class="column-border" style="text-align: center;vertical-align: top;">
+                        <% invoice.line_items.each do |line_item|  %>
+                             <% next if line_item.state == 1 %>
+                             <p>
+                               <%= "#{line_item.order.customer.name} - #{line_item.product.name}"   %>
+                               <%= "(#{line_item.seek_quantity})" unless line_item.seek_quantity.blank? %>
+                             </p>
+
+
+                        <% end %>
+                    </td>
+                    <td class="column-border" style="text-align: center; vertical-align: top;">
+                      <%= number_with_delimiter(invoice.line_items.sum(:seek_quantity)) %>
+                    </td>
+                    <td class="column-border" style="text-align: center; vertical-align: top;">
+                      <%= number_with_delimiter(invoice.line_items.sum(:quantity)) %>
+                    </td>
+                    <td class="column-border" style="text-align: center; vertical-align: top;" id="hilight">
+                      <%= number_with_delimiter(invoice.line_items.sum(:seek_quantity) - invoice.line_items.sum(:quantity)) %>
+                    </td>
+
+                    <td class="column-border" style="text-align: center; vertical-align: top;">
+                      <% if invoice.state = "complete" %>
+                          <font color="green"><%= t("system_state.#{invoice.state.downcase}") %> </font>
+                      <% else %>
+                          <font color="red"><%= t("system_state.#{invoice.state.downcase}") %> </font>
+                      <% end %>
+                    </td>
+                  </tr>
+              <% end %>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+
+
+    </div>
+<% end %>
+
+

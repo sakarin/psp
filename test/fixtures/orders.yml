@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  number: MyString
+  user_id: 1
+  customer_id: 1
+  product_id: 1
+  start_date: 2011-06-06
+  end_date: 2011-06-06
+  quantity: 1
+  note: MyString
+
+two:
+  number: MyString
+  user_id: 1
+  customer_id: 1
+  product_id: 1
+  start_date: 2011-06-06
+  end_date: 2011-06-06
+  quantity: 1
+  note: MyString

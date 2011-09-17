@@ -1,0 +1,36 @@
+<script type="text/javascript">
+    //Cufon.replace('#menu li',{hover:true});
+    Cufon.replace('.menu-head-content', {hover:true});
+    Cufon.replace('.menu-head-content-status-label', {hover:true});
+    Cufon.replace('.tabel-data-thead', {hover:true});
+    Cufon.replace('.buttons', {hover:true});
+
+    Cufon.replace('label', {hover:true});
+
+</script>
+
+<div class="menu-head-content">
+  <ul>
+    <li><a href="#"><strong>ตั้งค่าระบบ</strong></a></li>
+  </ul>
+</div>
+<div class="menu-head-content-label">SYSTEM SETTING</div>
+
+<ul>
+  <li><%= link_to "จัดการข้อมูลการเคลือบ", coats_path %></li>
+</ul>
+<ul>
+  <li><%= link_to "จัดการข้อมูลการตัด", cuts_path %></li>
+</ul>
+<ul>
+  <li><%= link_to "จัดการข้อมูลการติดกาว", glues_path %></li>
+</ul>
+<ul>
+  <li><%= link_to "จัดการข้อมูลขนาดปากถุง", mouths_path %></li>
+</ul>
+<ul>
+  <li><%= link_to "จัดการข้อมูลการปั้มพิเศษ", pumps_path %></li>
+</ul>
+<ul>
+  <li><%= link_to "จัดการข้อมูลการปั้มเส้นพับ", pump_lines_path %></li>
+</ul>

@@ -1,0 +1,15 @@
+<% #if can? :update, @user %>
+    <div style="padding: 5px 100px " class="role">
+      <p>
+        <label class="label-form" for="form"><span><b>หน้าที่รับผิดชอบ</b></span></label>
+      </p>
+      <% for role in User::ROLES %>
+                <span style="margin-top: 10px;">
+                <%= check_box_tag "user[roles][]", role, @user.roles.include?(role), :style => "vertical-align: top;" %>
+                  <b><%= t("roles.#{role}") %></b><br>
+                </span>
+
+      <% end %>
+      <%= hidden_field_tag "user[roles][]", "" %>
+    </div>
+<%# end %>

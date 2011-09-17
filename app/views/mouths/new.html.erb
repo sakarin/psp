@@ -1,0 +1,45 @@
+
+<script type="text/javascript">
+	 //Cufon.replace('#menu li',{hover:true});
+	 Cufon.replace('.menu-head-content',{hover:true});
+	 Cufon.replace('.menu-head-content-status-label',{hover:true});
+	 Cufon.replace('.tabel-data-thead',{hover:true});
+	 Cufon.replace('.button-box',{hover:true});
+     Cufon.replace('.negative',{hover:true});
+
+
+	//for id
+	 Cufon.replace('label',{hover:true});
+
+
+</script>
+
+  <%= form_for(@mouth, :remote => true, :html => { :id => "form_new_mouth"}) do |f| %>
+
+    <div class="menu-head-content">
+        <p><a href="#"><strong>ขนาดปากถุง</strong></a>
+	</div>
+
+   <!-- begin form-->
+<div class="form" style="padding-top: 15px;padding-left: 7px;">
+  <ul>
+    <li>
+      <%= f.text_field :name, :size => 30 %>
+    </li>
+
+    <li>
+      <%= render "shared/fancybox_toolbar" %>
+
+
+    </li>
+  </ul>
+</div>
+
+
+
+
+<% end %>
+
+
+
+

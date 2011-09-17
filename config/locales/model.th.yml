@@ -1,0 +1,42 @@
+th:
+  activerecord:
+    models:
+      order: การสั่งของ
+      customer: ลูกค้า
+      factory: โรงงาน
+      manufacture: จำนวนการผลิต
+      coat: เคลือบพิเศษ
+      cut: จำนวนตัด
+      glue: การติดกาว
+      invoice: การจัดส่งโรงงาน
+      mouth: ปากถุง
+      product: สินค้า
+      pump: ปั้ม
+      pump_line: ปั้มเส้น
+      sent: การส่งสินค้า
+      stock: คลังสินค้า
+      user: ผู้ใช้
+      dashboard: เมนูฐานข้อมูล
+      session: ผู้ใช้
+
+    attributes:
+      order:
+        customer_id: ชื่อลูกค้า
+        quantity: จำนวน
+        product_id: ชื่องาน
+      customer:
+        name: ชื่อ
+      factory:
+        name: ชื่อ
+      manufacture:
+        quantity: จำนวนที่เสร็จแล้ว
+      sent:
+        quantity: จำนวนที่ต้องการส่ง
+      stock:
+        quantity: จำนวนที่นำเข้าคลัง
+      user:
+         username: ชื่อผู้ใช้
+         name: ชื่อ-นามสกุล
+         email: อีเมล์
+         password: รหัสผ่าน
+         password_confirmation: ยืนยันรหัสผ่าน

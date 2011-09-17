@@ -1,0 +1,29 @@
+
+<%= javascript_include_tag "fancybox/jquery.mousewheel-3.0.2.pack.js" %>
+<%= javascript_include_tag "fancybox/jquery.fancybox-1.3.1.js" %>
+
+<script type="text/javascript">
+
+	 Cufon.replace('.menu-head-content',{hover:true});
+	 Cufon.replace('.menu-head-content-status-label',{hover:true});
+	 Cufon.replace('.tabel-data-thead',{hover:true});
+	 Cufon.replace('.button-box',{hover:true});
+     Cufon.replace('.negative',{hover:true});
+	 //Cufon.replace('.label-form b',{hover:true});
+
+</script>
+
+<div class="menu-head-content">
+    <ul>
+        <li><a href="<%= products_path %>"><strong>รายการงาน</strong></a></li>
+        <li>|</li>
+        <li><a href="#"><b>เพิ่มชนิดซอง</b></a></li>
+    </ul>
+</div>
+
+<div class="menu-head-content-label">ENVELOPE</div>
+
+<%= render 'products/envelope/form' %>
+
+
+

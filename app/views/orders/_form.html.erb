@@ -1,0 +1,154 @@
+<%= javascript_include_tag "fancybox/jquery.mousewheel-3.0.2.pack.js" %>
+<%= javascript_include_tag "fancybox/jquery.fancybox-1.3.1.js" %>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("a#new_customer").fancybox({
+            'width'                : 400,
+            'height'            : 450,
+            'autoScale'            : true,
+            'transitionIn'        : 'none',
+            'transitionOut'        : 'none',
+            'type'                : 'iframe',
+            'scrolling'            : 'no',
+            'title'            : 'เพิ่มจำนวนสินค้าที่ทำการส่งให้ลูกค้า',
+
+            'onClosed': function() {
+                parent.location.reload(true);
+                $("#fancybox-wrap, #fancybox-overlay").delay(3000).fadeOut();
+            }
+        });
+
+        $("a#new_product").fancybox({
+            'width'                : 600,
+            'height'            : 80,
+            'autoScale'            : true,
+            'transitionIn'        : 'none',
+            'transitionOut'        : 'none',
+            'type'                : 'iframe',
+            'scrolling'            : 'no',
+            'title'            : 'เพิ่มงาน',
+
+
+
+            'onClosed': function() {
+                parent.location.reload(true);
+                $("#fancybox-wrap, #fancybox-overlay").delay(3000).fadeOut();
+            }
+        });
+
+
+
+    });
+
+
+</script>
+
+<!-- begin form-->
+<%= form_for(@order) do |f| %>
+    <% if @order.errors.any? %>
+        <div id="error_explanation">
+          <h2>คุณต้องแก้ไขข้อผิดพลาดต่อไปนี้ก่อนจึงจะบันทึกได้:</h2>
+
+          <ul>
+            <% @order.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <%= hidden_field("customer_fancy", :value => "true") %>
+    <div class="form">
+      <ul>
+        <li>
+          <p>
+            <label class="label-form" for="form"><span><b>เลขที่ใบสั่งของ :</b></span>
+              <%= f.text_field :number, :readonly => true, :style => "border:none;" %>
+
+            </label>
+          </p>
+        </li>
+        <li>
+          <p>
+            <label class="label-form" style="margin-top:7px;" for="form"><span><b>ผู้รับงาน :</b></span>
+              <%= f.collection_select :user_id, User.all, :id, :name, options ={:prompt => "-- กดเพื่อเลือกผู้รับงาน --"} %>
+            </label>
+
+          </p>
+        </li>
+        <li>
+          <p>
+            <label class="label-form" style="margin-top:7px;" for="form"><span><b>ชื่อลูกค้า :</b></span>
+              <%= f.select("customer_id", Customer.all.collect { |u| [u.name, u.id] }, options ={:prompt => "-- กดเพื่อเลือกลูกค้า --"}) %>
+              <%#= link_to "เพิ่มลูกค้า", "/customers/fancy", :id => "new_customer" %>
+            </label>
+
+          </p>
+        </li>
+
+        <li>
+          <p>
+            <label class="label-form" style="margin-top:7px;" for="form"><span><b>ช่ืองาน :</b></span>
+              <%= f.select("product_id", Product.find_all_by_customer_id(@order.customer_id).collect { |u| [u.name, u.id] }, options ={:prompt => "-- กดเพื่อเลือกงาน --"}) %>
+            </label>
+
+            <%#= link_to image_tag("icons/1296127614_bullet_add.png", :border=>0 ), newproduct_path, :id => "new_product", :style => "vertical-align: bottom;" %>
+          </p>
+        </li>
+
+        <li>
+          <p>
+            <label class="label-form" for="form"><span><b>วันที่สั่งของ :</b></span>
+              <%= f.date_select :start_date, {:class => "combo-date"} %>
+            </label>
+          </p>
+        </li>
+        <li>
+          <p>
+            <label class="label-form" for="form"><span><b>กำหนดส่ง :</b></span>
+              <%= f.date_select :end_date, :style => "color: #FFFFFF" %>
+
+            </label>
+          </p>
+        </li>
+        <li>
+          <p>
+            <label class="label-form" for="form"><span><b>จำนวน :</b></span>
+
+              <%= f.text_field :quantity, :size => 20, :disabled => @order.manufacture_flag == 1 %>
+
+
+            </label>
+          </p>
+        </li>
+        <li>
+          <p>
+            <label class="label-form" for="form"><span style="vertical-align:top;"><b>หมายเหตุ :</b></span></label>
+            <%= f.text_area :note, :size => "22x4" %>
+          </p>
+        </li>
+        <li>
+
+          <div style="height:25px;margin-left: 115px;">
+            <% if @order.manufacture_flag == 0 %>
+	            <span class="buttons">
+	                <a href="#" class="negative" style="" onclick="document.forms[0].submit();">
+                      <%= image_tag "icons/accept.png" %>
+                      <b><%= t("button.save") %></b>
+                    </a>
+	            </span>
+            <% end %>
+            <span class="buttons">
+	                <a href="<%= orders_path %>" class="negative" style="padding-left: 5px;">
+
+                      <%= image_tag "icons/cross.png" %>
+                      <b><%= t("button.cancel") %></b>
+                    </a>
+	            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+<% end %>
+<!-- end form -->

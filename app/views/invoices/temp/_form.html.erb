@@ -1,0 +1,78 @@
+<div class="menu-head-content">
+  <ul>
+    <li><a href="#"><strong>เพิ่มวัตถุดิบให้โรงงาน</strong></a></li>
+
+  </ul>
+</div>
+<%= form_for(@invoice, :remote => true) do |f| %>
+    <div class="form" style="padding-top: 10px;">
+      <ul>
+        <li>
+          <label class="label-form" for="ps_id"><b>ชื่อโรงงาน :</b></label>
+          <%= f.collection_select(:factory_id, Factory.all, :id, :name) %>
+        </li>
+      </ul>
+    </div>
+
+    <!-- begin form-->
+    <div class="form" style="padding-top: 20px;">
+      <table border="0" cellpadding="0" cellspacing="0" id="tabel-data">
+        <thead class="tabel-data-thead">
+        <tr height="30px">
+          <th style="min-width: 10px;"></th>
+          <th style="min-width: 80px;">เลขที่ใบสั่ง</th>
+          <th style="min-width: 300px;">ชนิดถุง</th>
+          <th style="min-width: 150px;">ชื่อลูกค้า</th>
+          <th style="min-width: 50px;">จำนวนงาน<br/>(ที่ต้องขึ้นของ)</th>
+          <th style="min-width: 50px;">จำนวนงาน<br/>(ขึ้นของได้จริง)</th>
+        </tr>
+        </thead>
+
+        <tbody class="tabel-data-body">
+        <% @orders.each do |order| %>
+
+            <tr class="tr-odd">
+              <td class="column-border" style="text-align: center;vertical-align:bottom;">
+                <%= check_box_tag "invoice[order_ids][]", order.id, @invoice.line_items.include?(order) %>
+              </td>
+              <td class="column-border" style="min-width: 80px;text-align: center;"><%= order.number %></td>
+              <td class="column-border" style="min-width: 300px;"><%= order.product.name %></td>
+              <td class="column-border" style="min-width: 150px;"><%= order.customer.name %></td>
+              <td class="column-border" style="min-width: 80px;text-align: center;">
+                <%= order.manufactures.sum(:quantity) - (order.line_items.sum(:quantity)) %>
+
+                <%= hidden_field_tag "invoice[seek_quantity][#{order.id}]", "#{order.manufactures.sum(:quantity) - (order.line_items == nil ? 0 : order.line_items.sum(:quantity)) }" %>
+              </td>
+              <td class="column-border" style="min-width: 80px;text-align: center;">
+                <%= text_field_tag "invoice[quantity][#{order.id}]", "#{order.line_items == nil ? '' : order.line_items.sum(:quantity) }" %>
+              </td>
+            </tr>
+
+        <% end %>
+
+        </tbody>
+
+      </table>
+    </div>
+<% end %>
+
+<div style="height:25px;padding-top:5px;">
+
+  <%= render "shared/toolbar" %>
+
+  <span class="buttons" style="float:right;padding-right: 0px;">
+        <a href="#" class="negative" style="float:left;">
+          <%= image_tag "icons/pdf.png" %>
+          <b>พิมพ์ใบขึ้นของ</b>
+        </a>
+        <a href="system_inspect.htm" id="btn-add" class="negative" style="float:left;">
+          <%= image_tag "icons/inspect.png" %>
+          <b>ตรวจสอบยอด</b>
+        </a>
+        <a href="#" class="negative" style="float:left;">
+          <%= image_tag "icons/word.png" %>
+          <b>พิมพ์ใบส่งโรงงาน</b>
+        </a>
+
+	</span>
+</div>

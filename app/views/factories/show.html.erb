@@ -1,0 +1,86 @@
+<script type="text/javascript">
+	 //Cufon.replace('#menu li',{hover:true});
+	 Cufon.replace('.menu-head-content',{hover:true});
+	 Cufon.replace('.menu-head-content-status-label',{hover:true});
+	 Cufon.replace('.tabel-data-thead',{hover:true});
+	 Cufon.replace('.button-box',{hover:true});
+     Cufon.replace('.negative',{hover:true});
+
+	 Cufon.replace('label',{hover:true});
+</script>
+
+<div class="menu-head-content">
+    <ul>
+        <li><a href="<%= factories_path %>"><strong>โรงงาน</strong></a></li>
+        <li>|</li>
+        <li><a href="#"><b>แก้ไขข้อมูลโรงงาน</b></a></li>
+    </ul>
+</div>
+<div class="menu-head-content-label">FACTORY - EDIT DATA</div>
+
+<%= form_for(@factory) do |f| %>
+  <% if @factory.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@factory.errors.count, "error") %> prohibited this factory from being saved:</h2>
+
+      <ul>
+      <% @factory.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="form">
+    <ul>
+        <li>
+            <p>
+            <label class="label-form"  for="form"><span><b>ลำดับที่ :</b></span>
+                <%= f.text_field :code ,:size => 10, :readonly => true %>
+            </label>
+            </p>
+        </li>
+        <li>
+            <p>
+            <label class="label-form"  for="form"><span><b>ชื่อโรงงาน :</b></span>
+                 <%= f.text_field :name , :size => 30, :readonly => true %>
+            </label>
+            </p>
+        </li>
+        <li>
+            <p>
+            <label class="label-form"  for="form"><span><b>ผู้ประสานงาน :</b></span>
+                <%= f.text_field :collaborator, :size => 30, :readonly => true %>
+            </label>
+            </p>
+        </li>
+        <li>
+            <p>
+            <label class="label-form"  for="form"><span><b>เบอร์โทรศัพย์ :</b></span>
+                <%= f.text_field :telephone , :size => 20, :readonly => true %>
+            </label>
+            </p>
+        </li>
+        <li>
+            <p>
+            <label class="label-form"  for="form"><span><b>มือถือ :</b></span>
+                <%= f.text_field :mobile, :size => 20, :readonly => true %>
+            </label>
+            </p>
+        </li>
+
+        <li>
+
+            <div style="height:25px;padding-top:10px;">
+            <span class="buttons" >
+                <a href="<%= factories_path %>" class="negative" style="margin-left: 100px;" >
+                  <%= image_tag "icons/back.png" %>
+                    <b>ย้อนกลับ</b>
+                </a>
+            </span>
+
+            </div>
+        </li>
+    </ul>
+</div>
+
+<% end %>

@@ -1,0 +1,9 @@
+<b><%= product.name %></b>
+<ul style="margin-left: 10px;">
+
+  <li><%= "- กระดาษ #{product.paper}" unless product.paper.blank? %>  <%= ", ความหนา #{product.thick} ซ.ม." unless product.thick.blank? %></li>
+  <li><%= "- ขนาด #{product.size}" unless product.size.blank? %></li>
+
+  <li><%= "- หมายเหตุ #{product.comment}" unless product.comment.blank? %></li>
+</ul>
+

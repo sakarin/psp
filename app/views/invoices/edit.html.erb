@@ -1,0 +1,146 @@
+<%= javascript_include_tag "fancybox/jquery.mousewheel-3.0.2.pack.js" %>
+<%= javascript_include_tag "fancybox/jquery.fancybox-1.3.1.js" %>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("a#print_invoice").fancybox({
+            'width'                : 800,
+            'height'            : 750,
+            'autoScale'            : false,
+            'transitionIn'        : 'none',
+            'transitionOut'        : 'none',
+            'type'                : 'iframe',
+            'onClosed': function() {
+                parent.location.reload(true);
+                $("#fancybox-wrap, #fancybox-overlay").delay(3000).fadeOut();
+            }
+        }),
+                $("a#print_factory").fancybox({
+                    'width'                : 800,
+                    'height'            : 750,
+                    'autoScale'            : false,
+                    'transitionIn'        : 'none',
+                    'transitionOut'        : 'none',
+                    'type'                : 'iframe',
+                    'onClosed': function() {
+                        parent.location.reload(true);
+                        $("#fancybox-wrap, #fancybox-overlay").delay(3000).fadeOut();
+                    }
+                });
+    });
+</script>
+
+
+
+<div class="menu-head-content">
+  <ul>
+    <li><a href="#"><strong>เพิ่มวัตถุดิบให้โรงงาน</strong></a></li>
+
+  </ul>
+</div>
+
+<%= form_for(@invoice) do |f| %>
+    <div class="form" style="padding-top: 10px;">
+      <ul>
+        <li>
+          <label class="label-form" for="ps_id"><b>ชื่อโรงงาน
+            : <%= @invoice.factory.name unless @invoice.factory.nil? %></b></label>
+          <%= %>
+        </li>
+
+      </ul>
+    </div>
+
+
+    <!-- begin form-->
+    <div class="form" style="padding-top: 20px;">
+      <table border="0" cellpadding="0" cellspacing="0" id="tabel-data">
+        <thead class="tabel-data-thead">
+        <tr height="30px">
+          <th style="min-width: 10px;"></th>
+          <th style="min-width: 80px;">เลขที่ใบสั่ง</th>
+          <th style="min-width: 300px;">ชนิดถุง</th>
+          <th style="min-width: 150px;">ชื่อลูกค้า</th>
+          <th style="min-width: 50px;">จำนวนงาน<br/>(ที่มีในคลัง)</th>
+          <th style="min-width: 50px;">จำนวนงาน<br/>(ที่ต้องขึ้นของ)</th>
+          <th style="min-width: 50px;">จำนวนงาน<br/>(ขึ้นของได้จริง)</th>
+
+        </tr>
+        </thead>
+
+
+        <tbody class="tabel-data-body">
+        <% @invoice.line_items.each do |line_item| %>
+
+            <tr class="tr-odd">
+              <td class="column-border" style="text-align: center;vertical-align:bottom;">
+                <%#= check_box_tag "purchase[line_item_ids][]", item.id, @purchase.line_items.include?(item),
+                                { :disabled => %w(purchased received).include?(@purchase.state), :class => 'inventory_unit'} %>
+                <%= check_box_tag "invoice[order_ids][]", line_item.order.id, true %>
+              </td>
+              <td class="column-border" style="min-width: 80px;text-align: center;"><%= line_item.order.number %></td>
+              <td class="column-border" style="min-width: 300px;"><%= line_item.order.product.name %></td>
+              <td class="column-border" style="min-width: 150px;"><%= line_item.order.customer.name %></td>
+              <td class="column-border" style="min-width: 80px;text-align: center;"><%= number_with_delimiter line_item.order.product.material %></td>
+              <td class="column-border" style="min-width: 80px;text-align: center;">
+                <%= number_with_delimiter line_item.seek_quantity %>
+              </td>
+              <td class="column-border" style="min-width: 80px;text-align: center;">
+                <% if @invoice.state == "complete" %>
+                    <%#= text_field_tag "invoice[quantity][#{line_item.order.id}]", "#{ line_item.quantity}", :readonly => "", :style => "text-align: center;" %>
+                    <%= number_with_delimiter line_item.quantity %>
+                <% elsif @invoice.state == "check_sum" or @invoice.state =="print_factory" %>
+                    <%= text_field_tag "invoice[quantity][#{line_item.order.id}]", "#{ line_item.quantity}" %>
+
+                <% end %>
+              </td>
+            </tr>
+
+        <% end %>
+
+
+        </tbody>
+
+      </table>
+    </div>
+<% end %>
+
+<div style="height:25px;padding-top:5px;">
+
+
+
+    <span class="buttons">
+        <a href="<%= invoices_path %>" class="negative" style="margin-left: 5px;">
+          <%= image_tag "icons/back.png" %>
+          <b>ย้อนกลับ</b>
+        </a>
+    </span>
+
+    <span class="buttons" style="float:right;padding-right: 0px;">
+
+
+
+
+      <a href="/invoices/<%= @invoice.id %>.pdf" class="negative" style="float:left;" id="print_invoice" >
+        <%= image_tag "icons/pdf.png" %>
+        <b>พิมพ์ใบขึ้นของ</b>
+      </a>
+
+      <% if @invoice.state == "check_sum" %>
+        <a href="#" class="negative" onclick="document.forms[0].submit();">
+          <%= image_tag "icons/accept.png" %>
+          <b>ยืนยันข้อมูล</b>
+        </a>
+      <% end %>
+
+
+      <% if @invoice.state == "print_factory" || @invoice.state == "complete"  %>
+          <!--/invoices/:id/invoice(.:format)-->
+          <a href="/invoices/<%= @invoice.id %>/invoice.pdf" class="negative" style="float:left;" id="print_factory" >
+            <%= image_tag "icons/word.png" %>
+            <b>พิมพ์ใบส่งโรงงาน</b>
+          </a>
+      <% end %>
+
+	</span>
+</div>

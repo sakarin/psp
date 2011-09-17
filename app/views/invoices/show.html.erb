@@ -1,0 +1,75 @@
+<div class="menu-head-content">
+  <ul>
+    <li><strong>ใบขึ้นของ</strong></li>
+  </ul>
+</div>
+
+<div class="form" style="padding-top: 10px;">
+  <ul>
+    <li>
+      <label class="label-form" for="ps_id"><b>เลขที่ :<%= @invoice.number %></b></label>
+    </li>
+    <li>
+      <label class="label-form" for="ps_id"><b>ชื่อโรงงาน : <%= @invoice.factory.name %></b></label>
+    </li>
+    <li>
+      <label class="label-form" for="ps_id"><b>วันที่ : <%= I18n.l(@invoice.created_at, :format => :long) %></b></label>
+    </li>
+  </ul>
+</div>
+
+<!-- begin form-->
+<div class="form" style="padding-top: 20px;">
+  <table border="0" cellpadding="0" cellspacing="0" id="tabel-data">
+    <thead class="tabel-data-thead">
+    <tr height="30px">
+      <th style="min-width: 80px;">เลขที่ใบสั่ง</th>
+      <th style="min-width: 300px;">ชนิดถุง</th>
+      <th style="min-width: 150px;">ชื่อลูกค้า</th>
+      <th style="min-width: 50px;">จำนวนงาน</th>
+      <th style="min-width: 50px;">ขึ้นจริง</th>
+
+    </tr>
+    </thead>
+
+    <tbody class="tabel-data-body">
+    <% @invoice.line_items.each do |line_item| %>
+
+        <tr class="tr-odd">
+          <td class="column-border" style="min-width: 80px;text-align: center;vertical-align: top;"><%= line_item.order.number %></td>
+          <td class="column-border" style="min-width: 300px;vertical-align: top;">
+
+            <% if line_item.order.product.product_type == 1 %>
+                <%= render :partial => 'shared/bag', :locals => {:product => line_item.order.product} %>
+            <% elsif line_item.order.product.product_type == 2 %>
+                <%= render :partial => 'shared/envelope', :locals => {:product => line_item.order.product} %>
+            <% elsif line_item.order.product.product_type == 3 %>
+                <%= render :partial => 'shared/box', :locals => {:product => line_item.order.product} %>
+            <% else %>
+                <%= render :partial => 'shared/other', :locals => {:product => line_item.order.product} %>
+            <% end %>
+
+
+          </td>
+          <td class="column-border" style="min-width: 150px;vertical-align: top;"><%= line_item.order.customer.name %></td>
+          <td class="column-border" style="min-width: 80px;text-align: center;vertical-align: top;">
+            <%= number_with_delimiter line_item.seek_quantity %>
+          </td>
+          <td class="column-border" style="min-width: 80px;text-align: center;vertical-align: top;"></td>
+        </tr>
+
+    <% end %>
+    <tr class="tr-odd">
+      <td style="border-top: 2px solid #990000;vertical-align: top;" colspan="2" class="column-border"></td>
+      <td style="border-top: 2px solid #990000;text-align: center;vertical-align: top;" class="column-border"><b>รวม</b>
+      </td>
+      <td style="border-top: 2px solid #990000;text-align: center;vertical-align: top;" class="column-border">
+        <b><%= number_with_delimiter @invoice.line_items.sum(:seek_quantity) %></b>
+      </td>
+      <td style="border-top: 2px solid #990000;text-align: center;vertical-align: top;" class="column-border"></td>
+    </tr>
+
+    </tbody>
+
+  </table>
+</div>

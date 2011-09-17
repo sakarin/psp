@@ -1,0 +1,112 @@
+<script type="text/javascript">
+
+	 Cufon.replace('.menu-head-content',{hover:true});
+	 Cufon.replace('.menu-head-content-status-label',{hover:true});
+	 Cufon.replace('.tabel-data-thead',{hover:true});
+	 Cufon.replace('.button-box',{hover:true});
+     Cufon.replace('.negative',{hover:true});
+
+	 Cufon.replace('label',{hover:true});
+
+</script>
+
+<div class="menu-head-content">
+    <ul>
+
+        <li><a href="#"><b>เพิ่มลูกค้าใหม่</b></a></li>
+    </ul>
+</div>
+
+
+<%= form_for(@customer) do |f| %>
+  <% if @customer.errors.any? %>
+    <div id="error_explanation">
+      <h2>คุณต้องแก้ไขข้อผิดพลาดต่อไปนี้ก่อนจึงจะบันทึกได้:</h2>
+      <ul>
+      <% @customer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+    <div class="form">
+        <ul>
+            <li>
+                <p>
+                <label class="label-form"  for="form"><span><b>ลำดับที่ :</b></span>
+                     <%= f.text_field :code, :readonly => true, :style=>"border:none" %>
+                </label>
+                </p>
+            </li>
+            <li>
+                   <p>
+                <label class="label-form"  for="form"><span><b>ชื่อลูกค้า :</b></span>
+                    <%= f.text_field :name, :size => 40  %>
+                </label>
+                </p>
+            </li>
+            <li>
+                   <p>
+                <label class="label-form"  for="form"><span><b>แผนก/สาขา :</b></span>
+                   <%= f.text_field :department, :size => 40  %>
+                </label>
+                </p>
+            </li>
+            <li>
+                <p>
+                <label class="label-form"  for="form"><span><b>ผู้ประสานงาน :</b></span>
+                    <%= f.text_field :collaborator, :size => 40  %>
+                </label>
+                </p>
+            </li>
+            <li>
+                <p>
+                <label class="label-form"  for="form"><span style="vertical-align:top;"><b>ที่อยู่ :</b></span>
+
+                </label>
+               <%= f.text_area :address, :size => "22x4" %>
+                </p>
+
+            </li>
+            <li>
+                <p>
+                <label class="label-form"  for="form"><span><b>เบอร์โทรศัพท์ :</b></span>
+                    <%= f.text_field :telephone, :size => 30  %>
+                </label>
+                </p>
+            </li>
+            <li>
+                <p>
+                <label class="label-form"  for="form"><span><b>โทรศัพท์มือถือ :</b></span>
+                     <%= f.text_field :mobile, :size => 30  %>
+                </label>
+                </p>
+            </li>
+            <li>
+                <p>
+                <label class="label-form"  for="form"><span><b>โทรสาร(Fax) :</b></span>
+
+                  <%= f.text_field :fax, :size => 30  %>
+                </label>
+                </p>
+            </li>
+            <li>
+                <p>
+                <label class="label-form"  for="form"><span><b>อีเมล์ :</b></span>
+                    <%= f.text_field :email, :size => 30  %>
+                </label>
+                </p>
+            </li>
+            <li>
+
+            <%= render "shared/toolbar" %>
+            </li>
+        </ul>
+    </div>
+
+<% end %>
+
+

@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+
+  <%= stylesheet_link_tag :all %>
+
+  <%= csrf_meta_tag %>
+
+  <%= javascript_include_tag "psp/cufon-yui.js" %>
+  <%= javascript_include_tag "psp/TH_K2D_July8_400.font.js" %>
+  <%= javascript_include_tag "psp/TH_K2D_July8_700.font.js" %>
+
+</head>
+<body>
+
+<div id="warper">
+
+  <%= yield %>
+</div>
+
+</body>
+</html>

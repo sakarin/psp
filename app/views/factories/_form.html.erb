@@ -1,0 +1,125 @@
+<%= form_for(@factory) do |f| %>
+    <% if @factory.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@factory.errors.count, "error") %> prohibited this factory from being saved:</h2>
+
+          <ul>
+            <% @factory.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+
+    <div class="form">
+      <ul>
+        <li>
+          <p>
+            <label class="label-form" for="form"><span><b>ลำดับที่ :</b></span>
+              <%= f.text_field :code, :size => 10, :value => @factory.code, :readonly => true, :style=>"border:none" %>
+            </label>
+          </p>
+        </li>
+        <li>
+          <p>
+            <label class="label-form" for="form"><span><b>ชื่อโรงงาน :</b></span>
+              <%= f.text_field :name, :size => 30 %>
+            </label>
+          </p>
+        </li>
+        <li>
+          <p>
+            <label class="label-form" for="form"><span><b>ผู้ประสานงาน :</b></span>
+              <%= f.text_field :collaborator, :size => 30 %>
+            </label>
+          </p>
+        </li>
+        <li>
+          <p>
+            <label class="label-form" for="form"><span><b>เบอร์โทรศัพท์  :</b></span>
+              <%= f.text_field :telephone, :size => 20 %>
+            </label>
+          </p>
+        </li>
+        <li>
+          <p>
+            <label class="label-form" for="form"><span><b>มือถือ :</b></span>
+              <%= f.text_field :mobile, :size => 20 %>
+            </label>
+          </p>
+        </li>
+
+        <li>
+
+          <div style="height:25px;padding-top:10px;">
+            <span class="buttons">
+                <a href="#" class="negative" style="margin-left: 115px;" onclick="document.forms[0].submit();">
+                  <%= image_tag "icons/accept.png" %>
+                  <b>ตกลง</b>
+                </a>
+            </span>
+            <span class="buttons">
+                <a href="<%= factories_path %>" class="negative" style="margin-left: 5px;">
+
+                  <%= image_tag "icons/cross.png" %>
+                  <b>ย้อนกลับ</b>
+                </a>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+<% end %>
+
+
+
+<% unless @orders.nil? %>
+<div class="menu-head-content">
+    <ul>
+
+        <li><a href="#"><b>รายการสั่งสินค้า</b></a></li>
+    </ul>
+</div>
+
+
+<div id="tabel-data-warper" style="padding-top: 10px;">
+  <table border="0" cellpadding="0" cellspacing="0" id="tabel-data">
+    <thead class="tabel-data-thead">
+    <tr height="30px">
+
+      <th style="min-width: 80px;">ลำดับ</th>
+      <th style="min-width: 150px;">วันรับงาน</th>
+      <th style="min-width: 300px;">ชื่อลูกค้า</th>
+      <th style="min-width: 200px;">ชนิดงาน</th>
+      <th style="min-width: 80px;">จำนวน</th>
+      <th style="min-width: 80px;">สถานะ</th>
+
+    </tr>
+    </thead>
+    <tbody class="tabel-data-body">
+    <% @orders.each do |order| %>
+        <tr class="<%= cycle('tr-odd','tr-even') %>" >
+          <td class="column-border" style="min-width: 80px;text-align: center;"><%= order.number %></td>
+          <td class="column-border" style="min-width: 100px;text-align: center;"><%= I18n.l(order.end_date, :format => :long) %></td>
+          <td class="column-border" style="min-width: 300px;"><%= order.customer.name %></td>
+          <td class="column-border" style="min-width: 80px;text-align: center;"><%= order.product.name %></td>
+          <td class="column-border" style="min-width: 80px;text-align: center;" id="hilight"><%= number_with_delimiter order.quantity %></td>
+          <td class="column-border" style="min-width: 80px;text-align: center;">
+            <% if order.state == "complete" %>
+                <font color="green"> <%= t("order_state.#{order.state.downcase}") %> </font>
+            <% elsif order.state == "ordering" %>
+                <font color="red"><%= t("order_state.#{order.state.downcase}") %> </font>
+            <% else %>
+                <font color="gray"><%= t("order_state.#{order.state.downcase}") %> </font>
+            <% end %>
+
+          </td>
+
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<% end %>

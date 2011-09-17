@@ -1,0 +1,79 @@
+<div class="menu-head-content">
+  <ul>
+    <li><a href="#"><strong>เพิ่มวัตถุดิบให้โรงงาน</strong></a></li>
+  </ul>
+</div>
+<%= form_for(@invoice, :remote => true) do |f| %>
+    <div class="form" style="padding-top: 10px;">
+      <ul>
+        <li>
+          <label class="label-form" for="ps_id"><b>ชื่อโรงงาน : <%= @factory.name %></b></label>
+          <%= f.hidden_field :factory_id, :value => @invoice.factory_id %>
+        </li>
+
+      </ul>
+    </div>
+
+    <!-- begin form-->
+    <div class="form" style="padding-top: 20px;">
+      <table border="0" cellpadding="0" cellspacing="0" id="tabel-data">
+        <thead class="tabel-data-thead">
+        <tr height="30px">
+          <th style="min-width: 10px;"></th>
+          <th style="min-width: 80px;">เลขที่ใบสั่ง</th>
+          <th style="min-width: 300px;">ชนิดถุง</th>
+          <th style="min-width: 150px;">ชื่อลูกค้า</th>
+          <th style="min-width: 50px;">จำนวนงาน<br/>(ที่มีในคลัง)</th>
+          <th style="min-width: 50px;">จำนวนงาน<br/>(ที่ต้องขึ้นของ)</th>
+        </tr>
+        </thead>
+
+
+        <tbody class="tabel-data-body">
+        <% @orders.each do |order| %>
+            <% if order.quantity > order.line_items.sum(:quantity) and order.product.material > 0 %>
+
+                <tr class="tr-odd">
+                  <td class="column-border" style="text-align: center;vertical-align:bottom;">
+                    <%= check_box_tag "invoice[order_ids][]", order.id %>
+                  </td>
+                  <td class="column-border" style="min-width: 80px;text-align: center;"><%= order.number %></td>
+                  <td class="column-border" style="min-width: 300px;"><%= order.product.name %></td>
+                  <td class="column-border" style="min-width: 150px;"><%= order.customer.name %></td>
+                  <td class="column-border" style="min-width: 80px;text-align: center;"><%= number_with_delimiter order.product.material %></td>
+                  <td class="column-border" style="min-width: 80px;text-align: center;">
+                    <%#= number_with_delimiter order.manufactures.sum(:quantity) - (order.line_items.sum(:quantity)) %>
+                    <%#= hidden_field_tag "invoice[seek_quantity][#{order.id}]", "#{order.manufactures.sum(:quantity) - order.line_items.sum(:quantity)}" %>
+
+                     <%= number_with_delimiter order.quantity - order.line_items.sum(:quantity) %>
+                    <%= hidden_field_tag "invoice[seek_quantity][#{order.id}]", "#{order.quantity - order.line_items.sum(:quantity)}" %>
+                  </td>
+                </tr>
+            <% end %>
+        <% end %>
+
+
+        </tbody>
+
+      </table>
+    </div>
+<% end %>
+
+<div style="height:25px;padding-top:5px;">
+
+    <span class="buttons">
+        <a href="#" class="negative" onclick="document.forms[0].submit();">
+          <%= image_tag "icons/accept.png" %>
+          <b>บันทึกข้อมูล</b>
+        </a>
+    </span>
+
+  <span class="buttons">
+        <a href="<%= invoices_path %>" class="negative" style="margin-left: 5px;">
+          <%= image_tag "icons/cross.png" %>
+          <b>ไม่ต้องบันทึก</b>
+        </a>
+    </span>
+
+
+</div>

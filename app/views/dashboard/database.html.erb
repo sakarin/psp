@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>PSP OPERATION PROGRAM</title>
+<style type="text/css">
+#home-navigator-menu{ width:270px; height:115px; margin: 0 auto;}
+#home-navigator-menu ul { list-style:none;}
+#home-navigator-menu ul li{ display:inline; float:left;}
+#home-navigator-menu ul li a{ display:block;}
+</style>
+</head>
+<body>
+<div id="warper">
+	<div id="logo-navigator" onclick="window.location='<%= root_path %>' ">
+
+    </div>
+    <div id="home-navigator-menu">
+        <ul>
+            <li><a class="navigator-bag" href="<%= products_path %>"
+            style="display:block; width:81px; height:115px; background:url(images/psp-navigator-page1.png) no-repeat; background-position: 0px 0px;"></a></li>
+            <li><a class="navigator-factory"  href="<%= factories_path %>"
+            style="display:block; width:98px; height:115px; background:url(images/psp-navigator-page1.png) no-repeat; background-position: -81px 0px;"></a></li>
+            <li><a class="navigator-customer"  href="<%= customers_path %>"
+            style="display:block; width:91px; height:115px; background:url(images/psp-navigator-page1.png) no-repeat; background-position: -179px 0px;"></a></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<script type="text/javascript">
+	 //Cufon.replace('#menu li',{hover:true});
+	 Cufon.replace('.menu-head-content',{hover:true});
+	 Cufon.replace('.menu-head-content-status-label',{hover:true});
+	 Cufon.replace('.tabel-data-thead',{hover:true});
+	 Cufon.replace('.buttons',{hover:true});
+
+	 Cufon.replace('label',{hover:true});
+
+</script>
+
+<div class="menu-head-content">
+    <ul>
+        <li><a href="#"><strong>รายการลูกค้า</strong></a></li>
+    </ul>
+</div>
+<div class="menu-head-content-label">CUSTOMER</div>
+<div style="margin-top:10px;margin-bottom:10px; height:30px;">
+
+    <div style="height:25px; float:left;">
+        <span class="buttons" >
+            <a href="<%= new_customer_path %>" id="btn-add" class="negative" style="float:left;">
+                <img src="images/icons/new.png" alt=""/>
+                <b>เพิ่มลูกค้า</b>
+            </a>
+        </span>
+    </div>
+
+    <div class="search">
+        <% form_tag customers_path, :method => 'get' do %>
+              <%= text_field_tag :search, params[:search], :placeholder => 'กรอกชื่อลูกค้าที่ต้องการค้นหา...' %>
+                <%= submit_tag "ค้นหา", :name => nil %>
+        <% end %>
+    </div>
+
+
+
+</div>
+<div id="tabel-data-warper">
+    <table border="0" cellpadding="0" cellspacing="0" id="tabel-data">
+        <thead class="tabel-data-thead">
+            <tr height= "30px">
+              <th style="min-width: 80px;">รหัส</th>
+              <th style="min-width: 300px;">ชื่อลูกค้า</th>
+              <!--<th style="min-width: 100px;">สาขา/แผนก</th>-->
+              <th style="min-width: 180px;">วันที่</th>
+
+             </tr>
+        </thead>
+
+
+        <tbody class="tabel-data-body">
+            <% @customers.each do |customer| %>
+            <tr class="<%= cycle("tr-odd","tr-even") %>" onclick="location.href='<%=  edit_customer_path(customer) %>'">
+              <td class="column-border" style="min-width: 80px;text-align: center;"><%= customer.code %></td>
+              <td class="column-border" style="min-width: 300px;"><%= customer.name %></td>
+              <!--<td class="column-border" style="min-width: 100px;"><%= customer.department %></td>-->
+              <td class="column-border" style="min-width: 70px;width: 180px;text-align: center;"><%= I18n.l(customer.created_at, :format => :long)  %></td>
+              <!--<td class="column-border" style="min-width: 70px;width: 180px;text-align: center;">-->
+                    <!--<span class="">-->
+                        <!--<%= link_to 'แสดง', customer %>-->
+                    <!--</span>-->
+                    <!--<span style="padding-left: 10px;">-->
+                       <!--<%= link_to 'แก้ไข', edit_customer_path(customer) %>-->
+                    <!--</span>-->
+                    <!--<span style="padding-left: 10px;">-->
+                       <!--<%= link_to 'ลบ', customer, :confirm => 'Are you sure?', :method => :delete %>-->
+                    <!--</span>-->
+
+              <!--</td>-->
+            </tr>
+            <% end %>
+
+        </tbody>
+    </table>
+
+</div>
+ <div id="paginate" style="padding-left: 0px; padding-top: 5px;">
+  <%= will_paginate @factories %>
+</div>
+
+

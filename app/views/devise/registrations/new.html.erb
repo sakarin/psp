@@ -1,0 +1,91 @@
+<script type="text/javascript">
+
+	 Cufon.replace('.menu-head-content',{hover:true});
+	 Cufon.replace('.menu-head-content-status-label',{hover:true});
+	 Cufon.replace('.tabel-data-thead',{hover:true});
+	 Cufon.replace('.button-box',{hover:true});
+     Cufon.replace('.negative',{hover:true});
+
+	// Cufon.replace('label',{hover:true});
+     //Cufon.replace('.role', {hover:true});
+
+</script>
+
+<div class="menu-head-content">
+    <ul>
+        <li><a href="<%= users_path %>"><strong>รายการผู้ใช้งาน</strong></a></li>
+        <li>|</li>
+        <li><a href="#"><b>เพิ่มผู้ใช้</b></a></li>
+    </ul>
+</div>
+<div class="menu-head-content-label">NEW USER</div>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class="form">
+        <ul>
+            <li>
+                <p>
+                <label class="label-form"  for="form"><span><b>ชื่อผู้ใช้ :</b></span>
+                     <%= f.text_field :username %>
+                </label>
+                </p>
+            </li>
+            <li>
+                <p>
+                <label class="label-form"  for="form"><span><b>ชื่อ-นามสกุล :</b></span>
+                     <%= f.text_field :name %>
+                </label>
+                </p>
+            </li>
+            <li>
+                <p>
+                <label class="label-form"  for="form"><span><b>อีเมล์ :</b></span>
+                     <%= f.email_field :email %>
+                </label>
+                </p>
+            </li>
+            <li>
+                <p>
+                <label class="label-form"  for="form"><span><b>รหัสผ่าน :</b></span>
+                     <%= f.password_field :password, :size => 20 %>
+                </label>
+                </p>
+            </li>
+            <li>
+                <p>
+                <label class="label-form"  for="form"><span><b>ยืนยันรหัสผ่าน :</b></span>
+                     <%= f.password_field :password_confirmation, :size => 20 %>
+                </label>
+                </p>
+            </li>
+
+
+            <li>
+
+            <%= render "shared/cancan" %>
+
+            <div style="height:25px;padding-top:10px;">
+                <span class="buttons" >
+                    <a href="#" class="negative" style="margin-left: 115px;" onclick="document.forms[0].submit();">
+                      <%= image_tag "icons/accept.png" %>
+                        <b>ตกลง</b>
+                    </a>
+                </span>
+                <span class="buttons">
+                    <a href="<%= users_path %>" class="negative" style="margin-left: 5px;">
+
+                      <%= image_tag "icons/cross.png" %>
+                         <b>ย้อนกลับ</b>
+                    </a>
+                </span>
+            </div>
+            </li>
+        </ul>
+    </div>
+
+<% end %>
+
+
+

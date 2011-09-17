@@ -1,0 +1,68 @@
+th:
+  actions:
+    index: ดูรายการข้อมูล
+    edit: แก้ไขข้อมูล
+    update: บันทึกข้อมูล
+    new: เปิดรายการใหม่
+    create: สร้างรายการใหม่
+    database: เข้าดู
+    menu: เมนูหลัก
+
+  sessions:
+    create: เข้าสู่ระบบ
+    destroy: ออกจากระบบ
+
+  order:
+    save: ข้อมูลการสั่งซื้อได้ถูกสร้างแล้ว
+    update: บันทีกข้อมูลการสั่งซื้อแล้ว
+
+  order_state:
+    ordering: ได้รับการสั่งซื้อ
+    processing: ขั้นตอนการผลิต
+    manufactory: จัดสั่งให้โรงงาน
+    stocking: คลังสินค้า
+    sending: จัดส่ง
+    complete: เสร็จสมบูรณ์
+
+  state:
+    uncomplete: ยังไม่ครบ
+    complete: 'ครบแล้ว'
+  factory:
+    complete: ผลิตครบแล้ว
+    uncomplete: ผลิตยังไม่ครบ
+    save: ข้อมูลโรงงานได้ถูกสร้างแล้ว
+    update: บันทีกข้อมูลโรงงานแล้ว
+
+  system_state:
+    print_invoice: รอพิมพ์ใบขึ้นของ
+    check_sum: รอตรวจสอบยอด
+    print_factory: รอพิมพ์ใบส่งโรงงาน
+    complete: จัดส่งโรงงาน
+
+  invoice:
+    save: ข้อมูลการเพิ่มวัตถุดิบให้โรงงานได้ถูกสร้างแล้ว
+    update: บันทีกข้อมูลการเพิ่มวัตถุดิบให้โรงงานแล้ว
+
+  delivery_state:
+    complete: จัดส่งแล้ว
+    uncomplete: จัดส่งยังไม่ครบ
+
+  customer:
+    save: ข้อมูลลูกค้าได้ถูกสร้างแล้ว
+    update: บันทีกข้อมูลลูกค้าแล้ว
+
+  product:
+    save: ข้อมูลสินค้าได้ถูกสร้างแล้ว
+    update: บันทึกข้อมูลสินค้าแล้ว
+  roles:
+    admin: ผู้ดูแลระบบ
+    moderator: ผู้ใช้ทั่วไป
+
+  errors:
+    access_denied: "คุณไม่สามารถเข้าใช้งานหน้านี้ได้ !"
+
+
+  button:
+    save: ตกลง
+    cancel: ย้อนกลับ
+

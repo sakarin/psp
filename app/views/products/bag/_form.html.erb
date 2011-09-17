@@ -1,0 +1,165 @@
+<script type="text/javascript">
+//    $(document).ready(function() {
+//
+//    });
+</script>
+<%= form_for(@product) do |f| %>
+    <%= f.hidden_field :product_type %>
+
+    <% if @product.errors.any? %>
+        <div id="error_explanation">
+          <h2>คุณต้องแก้ไขข้อผิดพลาดต่อไปนี้ก่อนจึงจะบันทึกได้:</h2>
+          <ul>
+            <% @product.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+
+    <!-- begin form-->
+    <div class="form">
+      <ul>
+        <li>
+          <p>
+            <label class="label-form" for="form"><span><b>ลำดับที่ :</b></span>
+              <%= f.text_field :code, :size => 10, :style=>"border:none" %>
+            </label>
+          </p>
+        </li>
+        <li>
+          <label class="label-form" style="margin-top:7px;" for="form"><span><b>ชื่อลูกค้า :</b></span>
+            <%= select("product", "customer_id", Customer.all.collect { |c| [c.name, c.id] }) %>
+          </label>
+        </li>
+
+        <li>
+          <p>
+            <label class="label-form" for="form"><span><b>ชื่องาน :</b></span></label>
+            <%= f.text_field :name, :size => 40 %>
+
+          </p>
+        </li>
+        <li>
+          <p>
+            <label class="label-form" for="form"><span><b>พิมพ์ :</b></span>
+              <%= f.text_field :print_color, :size => 10 %>
+            </label>
+            <label class="label-form" for="form"><span style="width:auto;"><b>สี</b></span></label>
+          </p>
+        </li>
+        <li class="horizontal">
+          <label class="label-form" for="form"><span><b>ปั้มพิเศษ :</b></span>
+
+            <%= select("product", "pump_id", Pump.all.collect { |c| [c.name, c.id] }, {:include_blank => ''}) %>
+
+
+          </label>
+          <a href="<%= new_pump_path %>" id="new_pump" class="add_button"></a>
+
+        </li>
+
+        <li class="horizontal">
+          <label class="label-form" for="form"><span><b>ปั้มเส้นพับ :</b></span>
+            <%= select("product", "pump_line_id", PumpLine.all.collect { |c| [c.name, c.id] }, {:include_blank => ''}) %>
+          </label>
+          <a href="<%= new_pump_line_path %>" id="new_pump_line" class="add_button"></a>
+
+        </li>
+        <li class="horizontal">
+          <p>
+
+            <label class="label-form" for="form"><span><b>กระดาษ :</b></span>
+              <%= f.text_field :paper, :size => 40 %>
+            </label>
+            <label class="label-form" for="form"><span><b>ความหนา :</b></span>
+              <%= f.text_field :thick, :size => 10 %>
+            </label>
+          </p>
+        </li>
+        <li>
+          <label class="label-form" style="margin-top:7px;" for="form"><span><b>ตัด :</b></span>
+            <%= select("product", "cut_id", Cut.all.collect { |c| [c.name, c.id] }, {:include_blank => ''}) %>
+          </label>
+          <a href="<%= new_cut_path %>" id="new_cut" class="add_button"></a>
+
+        </li>
+        <li class="horizontal">
+          <p>
+
+            <label class="label-form" for="form"><span><b>กว้าง :</b></span>
+              <%= f.text_field :width, :size => 5 %>
+            </label>
+            <label class="label-form" for="form"><span style="width:50px;"><b>สูง :</b></span>
+              <%= f.text_field :high, :size => 5 %>
+            </label>
+            <label class="label-form" for="form"><span style="width:65px;"><b>พับข้าง :</b></span>
+              <%= f.text_field :side, :size => 5 %>
+            </label>
+            <label class="label-form" style="margin-top:7px;" for="form"><span style="width:50px;"><b>หน่วย :</b></span>
+              <select name="product[cut_unit]">
+                <option value="เซนติเมตร">เซนติเมตร</option>
+                <option value="นิ้ว">นิ้ว</option>
+              </select>
+            </label>
+          </p>
+        </li>
+        <li class="horizontal">
+          <label class="label-form" for="form"><span><b>เคลือบ :</b></span>
+            <%= select("product", "coat_id", Coat.all.collect { |c| [c.name, c.id] }, {:include_blank => ''}) %>
+          </label>
+          <a href="<%= new_coat_path %>" id="new_coat" class="add_button"></a>
+
+        </li>
+        <li>
+
+          <label class="label-form" for="form"><span><b>ขนาดปากถุง :</b></span>
+            <%= select("product", "mouth_id", Mouth.all.collect { |c| [c.name, c.id] }, {:include_blank => ''}) %>
+          </label>
+          <a href="<%= new_mouth_path %>" id="new_mouth" class="add_button"></a>
+        </li>
+        <li>
+          <p>
+            <label class="label-form" for="form"><span><b>รองก้น :</b></span>
+
+              <%= f.text_field :bottom, :size => 10 %>
+            </label>
+          </p>
+        </li>
+        <li>
+          <p>
+            <label class="label-form" for="form"><span><b>หูเชือก :</b></span>
+              <%= f.text_field :ear, :size => 10 %>
+            </label>
+            <label class="label-form" for="form"><span style="width:50px;"><b>No. :</b></span>
+              <%= f.text_field :ear_number, :size => 5 %>
+            </label>
+            <label class="label-form" for="form"><span style="width:65px;"><b>ยาว :</b></span>
+              <%= f.text_field :ear_long, :size => 5 %>
+            </label>
+            <label class="label-form" style="margin-top:7px;" for="form"><span style="width:50px;"><b>หน่วย :</b></span>
+              <select name="product[ear_unit]">
+                <option value="เซนติเมตร">เซนติเมตร</option>
+                <option value="นิ้ว">นิ้ว</option>
+              </select>
+            </label>
+
+          </p>
+        </li>
+
+
+        <li>
+          <p>
+            <label class="label-form" for="form"><span style="vertical-align:top;"><b>หมายเหตุ :</b></span></label>
+            <%= f.text_area :comment, :size => "22x4" %>
+          </p>
+        </li>
+        <li>
+
+          <%= render "shared/toolbar" %>
+        </li>
+      </ul>
+    </div>
+
+<% end %>

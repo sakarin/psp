@@ -1,0 +1,1 @@
+<%= select("order", "product_id", Product.all.collect{|u| [ u.name, u.id]}) %>

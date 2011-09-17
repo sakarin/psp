@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user: MyString
+  system: MyString
+  action: MyString
+  result: MyString
+
+two:
+  user: MyString
+  system: MyString
+  action: MyString
+  result: MyString

@@ -1,0 +1,59 @@
+<div id="tabel-data-warper">
+  <table border="0" cellpadding="0" cellspacing="0" id="tabel-data">
+    <thead class="tabel-data-thead">
+    <tr height="30px">
+      <th style="min-width: 80px;">เลขที่ใบสั่ง</th>
+      <th style="min-width: 150px;">ชื่อลูกค้า</th>
+      <th style="min-width: 300px;">ชนิดงาน</th>
+
+      <th style="min-width: 80px;">จำนวนการ<br/>ผลิตทั้งหมด</th>
+
+      <th style="min-width: 80px;">จำนวน<br/>ที่มึในคลัง</th>
+      <th style="min-width: 80px;">จำนวน<br/>ที่ต้องผลิตเพิ่ม</th>
+      <th style="min-width: 80px;">สถานะ</th>
+
+    </tr>
+    </thead>
+
+    <tbody class="tabel-data-body">
+    <% @orders.each do |order| %>
+        <tr class="<%= cycle('tr-odd', 'tr-even') %>" onclick="location.href='<%= order_manufacture_path(order, '1') %>'">
+          <td class="column-border" style="min-width: 80px;text-align: center;"><%= order.number %></td>
+          <td class="column-border" style="min-width: 150px;"><%= order.customer.name %></td>
+          <td class="column-border" style="min-width: 300px;"><%= order.product.name %></td>
+
+          <td class="column-border" style="min-width: 80px;text-align: center;"><%= number_with_delimiter(order.quantity) %></td>
+
+          <td class="column-border" style="min-width: 80px;text-align: center;"><%= number_with_delimiter(order.product.material) %></td>
+          <td class="column-border" style="min-width: 80px;text-align: center;" id="hilight">
+            <% manu_quantity = order.product.orders.by_manufacture_complete.sum(:quantity) %>
+            <% manu_quantity ||= 0 %>
+
+
+
+            <% if order.manufacture_flag == 0 %>
+               <%= number_with_delimiter(order.quantity - (order.product.manufactures.sum(:quantity) - manu_quantity)) %>
+            <% else %>
+               <%#= number_with_delimiter(order.product.orders.sum(:quantity) - order.product.manufactures.sum(:quantity)) %>
+               <%= 0 %>
+            <% end %>
+
+          </td>
+          <td class="column-border" style="min-width: 80px;text-align: center;">
+            <% if order.manufacture_flag == 1 %>
+                <font color="green"><%= t('state.complete') %></font>
+            <% elsif (order.product.orders.sum(:quantity) - order.product.manufactures.sum(:quantity)) <= 0 %>
+                <font color="green"><%= t('state.complete') %></font>
+            <% else %>
+                <font color="red"><%= t('state.uncomplete') %></font>
+            <% end %>
+          </td>
+
+        </tr>
+    <% end %>
+
+
+    </tbody>
+  </table>
+
+</div>

@@ -1,0 +1,2 @@
+module FactorySystemHelper
+end

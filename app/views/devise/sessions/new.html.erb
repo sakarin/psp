@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="style/style.css" rel="stylesheet" type="text/css"/>
+  <title>PSP OPERATION PROGRAM</title>
+  <style type="text/css">
+      #login-menu ul {
+          list-style: none;
+      }
+
+      #login-menu ul li {
+          margin-bottom: 5px;
+      }
+
+      #login-menu label {
+          color: #990000;
+          padding-right: 5px;
+          font-size: 16;
+          height: 22;
+      }
+
+      #login-button a {
+          display: block;
+          margin-top: 5px;
+          margin-right: 15px;
+          color: #990000;
+          font-family: Arial;
+          float: right;
+          text-decoration: none;
+          font-weight: bold;
+      }
+
+      .input-login {
+          border: 1px solid #990000;
+          width: 150px;
+          font-family: Arial;
+          font-size: 16px;
+      }
+  </style>
+</head>
+<body>
+<div id="warper">
+  <!--div id="logo-navigator">
+  ใช้หัวของหน้า index เดิม fix style ที่ element เอา
+  </div-->
+  <div id="head" style="margin-top:250px;">
+    <div id="head-top" style="height:67px;">
+      <div id="logo" style="margin:0 auto; float:none; margin-bottom:0px;"></div>
+
+    </div>
+    <!-- head-top -->
+    <div id="head-bottom">
+      <div id="label-logo" style="margin:0 auto; float:none; margin-top:5px;"></div>
+    </div>
+    <!-- head-bottom -->
+  </div>
+  <!-- head -->
+  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+      <div id="login-menu" style="margin: 0 auto; width:255px;">
+        <ul>
+          <li>
+            <div style="display:block;">
+              <label for="username" style="width:90px; text-align:right; display:block; float:left;"><b>ชื่อผู้ใช้ :</b>
+                </label><%= f.text_field :username, :size => 20 %>
+              </div>
+          </li>
+          <li>
+            <div style="display:block;">
+              <label for="password" style="width:90px; text-align:right; display:block; float:left;"><b>รหัสผ่าน :</b></label>
+              <%= f.password_field :password, :size => 20 %></div>
+          </li>
+          <li>
+            <div style="float: right;">
+              <% if devise_mapping.rememberable? -%>
+                  <p><%= f.check_box :remember_me %> <b><%= f.label :"จำการเข้าระบบของฉัน" %></b></p>
+              <% end -%>
+            </div>
+          </li>
+
+        </ul>
+        <div id="login-button">
+           <span class="buttons" style="float: right;">
+                <a href="#" class="negative" style="margin-left: 115px;" onclick="document.forms[0].submit();">
+                  <%= image_tag "icons/accept.png" %>
+                  <b>เข้าสู่ระบบ</b>
+                </a>
+            </span>
+        </div>
+      </div>
+  <% end %>
+</div>
+</body>
+</html>

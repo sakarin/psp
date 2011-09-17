@@ -1,0 +1,92 @@
+<script type="text/javascript">
+    //Cufon.replace('#menu li',{hover:true});
+    Cufon.replace('.menu-head-content', {hover:true});
+    Cufon.replace('.menu-head-content-status-label', {hover:true});
+    Cufon.replace('.tabel-data-thead', {hover:true});
+    Cufon.replace('.buttons', {hover:true});
+
+    Cufon.replace('label', {hover:true});
+
+</script>
+
+<%= javascript_include_tag "fancybox/jquery.mousewheel-3.0.2.pack.js" %>
+<%= javascript_include_tag "fancybox/jquery.fancybox-1.3.1.js" %>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("a#edit_coat").fancybox({
+            'width'                : 300,
+            'height'            : 140,
+            'autoScale'            : true,
+            'transitionIn'        : 'none',
+            'transitionOut'        : 'none',
+            'type'                : 'iframe',
+            'scrolling'            : 'no',
+            'title'            : 'แก้ไขชนิดการเคลือบ',
+            'onClosed': function() {
+                parent.location.reload(true);
+                $("#fancybox-wrap, #fancybox-overlay").delay(3000).fadeOut();
+            }
+
+        }),
+        $("a#new_coat").fancybox({
+            'width'                : 300,
+            'height'            : 140,
+            'autoScale'            : true,
+            'transitionIn'        : 'none',
+            'transitionOut'        : 'none',
+            'type'                : 'iframe',
+            'scrolling'            : 'no',
+            'title'            : 'เพิ่มชนิดการเคลือบ',
+            'onClosed': function() {
+                parent.location.reload(true);
+                $("#fancybox-wrap, #fancybox-overlay").delay(3000).fadeOut();
+            }
+
+        });
+    });
+</script>
+
+<div class="menu-head-content">
+  <ul>
+    <li><a href="#"><strong>รายการชนิดการเคลือบ</strong></a></li>
+  </ul>
+</div>
+<div style="margin-top:10px;margin-bottom:10px; height:30px;">
+
+    <div style="height:25px; float:left;">
+        <span class="buttons" >
+            <a href="<%= new_coat_path %>" id="new_coat" class="negative" style="float:left;">
+                <img src="images/icons/new.png" alt=""/>
+                <b>เพิ่มชนิดการเคลือบ</b>
+            </a>
+        </span>
+    </div>
+</div>
+
+
+<div id="tabel-data-warper">
+  <table border="0" cellpadding="0" cellspacing="0" id="tabel-data">
+    <thead class="tabel-data-thead">
+    <tr height="30px">
+      <th>ชนิดการเคลือบ</th>
+      <th></th>
+    </tr>
+    </thead>
+
+
+    <tbody class="tabel-data-body">
+    <% @coats.each do |coat| %>
+        <tr class="<%= cycle("tr-odd", "tr-even") %>">
+          <td class="column-border" style="min-width: 80px;"><%= coat.name %></td>
+          <td style="width: 100px;"> <%= link_to 'แก้ไข', edit_coat_path(coat), :id => "edit_coat" %>  <%= link_to 'ลบ', coat, :confirm => 'คุณต้องการลบข้อมูลนี้หร่อไม่ ?', :method => :delete %></td>
+        </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+
+</div>
+
+
+

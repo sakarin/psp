@@ -1,0 +1,86 @@
+<%= form_for(@product) do |f| %>
+    <%= f.hidden_field :product_type %>
+    <% if @product.errors.any? %>
+        <div id="error_explanation">
+          <h2>คุณต้องแก้ไขข้อผิดพลาดต่อไปนี้ก่อนจึงจะบันทึกได้:</h2>
+          <ul>
+            <% @product.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+
+
+    <!-- begin form-->
+    <div class="form">
+      <ul>
+        <li>
+          <p>
+            <label class="label-form" for="form"><span><b>ลำดับที่ :</b></span>
+              <%= f.text_field :code, :size => 10, :style=>"border:none" %>
+            </label>
+          </p>
+        </li>
+        <li>
+          <label class="label-form" style="margin-top:7px;" for="form"><span><b>ชื่อลูกค้า :</b></span>
+            <%= select("product", "customer_id", Customer.all.collect { |c| [c.name, c.id] }) %>
+          </label>
+        </li>
+
+        <li>
+          <p>
+            <label class="label-form" for="form"><span><b>ชื่องาน :</b></span>
+              <%= f.text_field :name, :size => 40 %>
+            </label>
+          </p>
+        </li>
+        <li class="horizontal">
+          <p>
+
+            <label class="label-form" for="form"><span><b>กระดาษ :</b></span>
+              <%= f.text_field :paper, :size => 40 %>
+            </label>
+            <label class="label-form" for="form"><span><b>ความหนา :</b></span>
+              <%= f.text_field :thick, :size => 10 %>
+            </label>
+          </p>
+        </li>
+        <li class="horizontal">
+          <p>
+            <label class="label-form" for="form"><span><b>ขนาด :</b></span>
+              <%= f.text_field :size, :size => 10 %>
+            </label>
+          </p>
+        </li>
+
+
+        <li>
+          <p>
+            <label class="label-form" for="form"><span style="vertical-align:top;"><b>หมายเหตุ :</b></span></label>
+            <%= f.text_area :comment, :size => "22x4" %>
+          </p>
+        </li>
+        <li>
+
+          <div style="height:25px;padding-top:10px;">
+            <span class="buttons">
+                <a href="#" class="negative" style="margin-left: 115px;" onclick="document.forms[0].submit();">
+                  <%= image_tag "icons/accept.png" %>
+                  <b>ตกลง</b>
+                </a>
+            </span>
+            <span class="buttons">
+                <a href="<%= products_path %>" class="negative" style="margin-left: 5px;">
+
+                  <%= image_tag "icons/cross.png" %>
+                  <b>ย้อนกลับ</b>
+                </a>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+<% end %>

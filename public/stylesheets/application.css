@@ -1,0 +1,80 @@
+
+table.pretty {
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+.pretty td, .pretty th {
+  padding: 4px 10px;
+  border: solid 1px #AAA;
+}
+
+.pretty .price {
+  text-align: right;
+}
+
+.pretty th .current {
+  padding-right: 12px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+
+.pretty th .asc {
+  background-image: url(/images/up_arrow.gif);
+}
+
+.pretty th .desc {
+  background-image: url(/images/down_arrow.gif);
+}
+
+
+@media print {
+  body {
+    background-color: #FFF;
+  }
+
+  #container {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+  #line_items {
+    page-break-before: always;
+  }
+
+  #pdf_link {
+    display: none;
+  }
+
+    .menu-head-content {
+        font-size: 25px;
+        color: #900;
+        display: block;
+        line-height:35px;
+        height: 25px;
+    }
+}
+
+#flash_notice, #flash_error {
+  padding: 5px 8px;
+  margin: 5px 20px 5px 160px;
+  #margin-right: 280px;
+}
+
+#flash_notice {
+  background-color: #CFC;
+  border: solid 1px #6C6;
+  font-size: 12px;
+}
+
+#flash_error {
+  background-color: #FCC;
+  border: solid 1px #C66;
+  font-size: 12px;
+}
+
+.text_lock {
+    border: none;
+}

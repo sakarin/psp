@@ -1,0 +1,59 @@
+<div class="menu-head-content">
+  <ul>
+    <li><a href="#"><strong>รายการใบสั่งของ</strong></a></li>
+  </ul>
+</div>
+<div class="menu-head-content-label">CLIENT ORDER</div>
+
+<%= form_tag orders_path, :method => 'get' do %>
+    <div class="menu-head-content-status-label">
+      <ul>
+        <li><b>ทั้งหมด (<%= Order.count %>)</b></li>
+        <li>|</li>
+        <li><b>สำเร็จแล้ว (<%= Order.where("state = 'complete'").count %>)</b></li>
+        <li>|</li>
+        <li><b>ยังไม่สำเร็จ (<%= Order.where("state != 'complete'").count %>)</b></li>
+      </ul>
+    </div>
+
+    <div style="margin-top:10px;margin-bottom:10px; padding-left:5px; height:30px;">
+      <div class="list-menu">
+        <%= select_tag(:search_state, options_for_select({"แสดงเฉพาะงานที่ยังไม่เสร็จ" => "1", "แสดงเฉพาะงานที่เสร็จแล้ว" => "2", "แสดงงานทั้งหมด" => "3"}, params[:search_state])) %>
+        <%= form_tag orders_path, :method => 'get' do %>
+
+            <%= select_tag(:search_type, options_for_select({"เลขที่ใบสั่งของ" => "1", "ชื่องาน" => "2", "ชื่อลูกค้า" => "3"}, params[:search_type])) %>
+            <%= text_field_tag :search, params[:search], :placeholder => 'ข้อความที่ต้องการค้นหา...' %>
+            <%= submit_tag "กรองข้อมูล", :name => nil %>
+        <% end %>
+
+      </div>
+    </div>
+
+    <%= hidden_field_tag :direction, params[:direction] %>
+    <%= hidden_field_tag :sort, params[:sort] %>
+
+
+
+    <div id="orders">
+      <%= render 'order', :locals => {:orders => @orders} %>
+    </div>
+
+
+
+
+
+
+    <div style="height:25px; padding-top:10px; margin-left: 5px;">
+	<span class="buttons">
+		<a href="<%= new_order_path %>" id="btn-add" class="negative" style="float:left;">
+          <img src="images/icons/new.png" alt=""/>
+          <b>เพิ่มใบสั่งของ</b>
+        </a>
+	</span>
+
+      <div id="paginate" style="padding-left: 0px; padding-top: 5px; float:left;">
+        <%= will_paginate @orders %>
+      </div>
+    </div>
+
+<% end %>

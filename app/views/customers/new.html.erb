@@ -1,0 +1,24 @@
+<script type="text/javascript">
+
+	 Cufon.replace('.menu-head-content',{hover:true});
+	 Cufon.replace('.menu-head-content-status-label',{hover:true});
+	 Cufon.replace('.tabel-data-thead',{hover:true});
+	 Cufon.replace('.button-box',{hover:true});
+     Cufon.replace('.negative',{hover:true});
+
+	 Cufon.replace('label',{hover:true});
+
+</script>
+
+<div class="menu-head-content">
+    <ul>
+        <li><a href="<%= customers_path %>"><strong>รายการลูกค้า</strong></a></li>
+        <li>|</li>
+        <li><a href="#"><b>เพิ่มลูกค้าใหม่</b></a></li>
+    </ul>
+</div>
+<div class="menu-head-content-label">CUSTOMER</div>
+
+<%= render 'form' %>
+
+
