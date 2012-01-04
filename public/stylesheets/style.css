@@ -9,6 +9,7 @@
 /* ------------------------------ */
 html, body {
     height: 100%;
+
 }
 
 #wrap {
@@ -665,6 +666,7 @@ fieldset.debug_info {
     color: #000;
 }
 
+
 #hilight {
     font-weight: bold;
     color: #990000;
@@ -679,6 +681,14 @@ fieldset.debug_info {
     line-height: 23px;
     height: 23px;
     vertical-align: bottom;
+}
+
+#login-menu{
+    font-size: 16px;
+}
+
+#config-menu{
+    font-size: 14px;
 }
 
 /* @end */

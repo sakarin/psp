@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  attr_accessible :number, :user_id, :customer_id, :product_id, :quantity, :note, :start_date, :end_date
+  attr_accessible :number, :user_id, :customer_id, :product_id, :quantity, :note, :start_date, :end_date, :end_date_flag
   attr_accessible :manufactures
 
 
@@ -37,6 +37,10 @@ class Order < ActiveRecord::Base
 
   scope :by_manufacture_state, lambda { |flag, product_id|
     where("manufacture_flag = ? AND product_id = ?", flag, product_id)
+  }
+
+  scope :by_manufacture_state_product_ordering, lambda { |flag, product_id|
+    where("manufacture_flag = ? AND product_id = ?", flag, product_id).order("id DESC")
   }
 
   scope :by_manufacture_complete, lambda {

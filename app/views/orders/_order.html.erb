@@ -16,7 +16,7 @@
     <% @orders.each do |order| %>
         <tr class="<%= cycle('tr-odd','tr-even') %>" onclick="location.href='<%= edit_order_path(order) %>'">
           <td class="column-border" style="min-width: 80px;text-align: center;"><%= order.number %></td>
-          <td class="column-border" style="min-width: 100px;text-align: center;"><%= I18n.l(order.end_date, :format => :long) %></td>
+          <td class="column-border" style="min-width: 100px;text-align: center;"><%= I18n.l(order.start_date, :format => :long) %></td>
           <td class="column-border" style="min-width: 300px;"><%= order.customer.name unless order.customer.nil? %></td>
           <td class="column-border" style="min-width: 80px;text-align: center;"><%= order.product.name unless order.product.nil? %></td>
           <td class="column-border" style="min-width: 80px;text-align: center;" id="hilight"><%= number_with_delimiter order.quantity %></td>

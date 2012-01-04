@@ -1,4 +1,5 @@
 class ManufacturesController < ApplicationController
+  authorize_resource
 
 
   before_filter :load_manufactures, :only => [:show]
@@ -25,26 +26,32 @@ class ManufacturesController < ApplicationController
 
     @manufacture = Manufacture.new(params[:manufacture])
     @order = Order.find(params[:order_id])
-    @order.save
+
 
     @manufacture.order_id = @order.id
     @manufacture.product_id = @order.product_id
     if @manufacture.save
+      @order.processing
 
       orders = Order.by_manufacture_state("0", @manufacture.product.id)
 
-      sum_meterial_manufacutured = @manufacture.product.manufactures.sum(:quantity)
+
+      sum_manufacture_product = @order.product.manufactures.sum(:quantity)
+
+      sum_manufacture_complete = Order.by_manufacture_state(1, @order.product.id).empty? ? 0 : Order.by_manufacture_state(1, @order.product.id).sum(:quantity)
+
+      total_quantity = sum_manufacture_product - sum_manufacture_complete
       orders.each do |order|
 
-        break if order.quantity > (sum_meterial_manufacutured - Order.by_manufacture_state("1", @manufacture.product.id).sum(:quantity))
+        if order.quantity <= total_quantity
+          order.manufacture_flag = 1
+          order.save
 
-        order.manufacture_flag = 1
-        order.processing
-        order.save
+          total_quantity -= order.quantity
+        end
 
       end
 
-      @order.processing
       render "shared/close", :layout => 'fancybox'
     else
 
@@ -55,7 +62,31 @@ class ManufacturesController < ApplicationController
 
   def destroy
     @manufacture = Manufacture.find(params[:id])
+    @order = Order.find(params[:order_id])
+
+    delete_quantity = @manufacture.quantity
+    orders = Order.by_manufacture_state_product_ordering(1, @manufacture.product.id).order("id DESC")
+
+
     @manufacture.destroy
+
+
+    sum_manufacture_product = @order.product.manufactures.sum(:quantity)
+
+    sum_manufacture_complete = Order.by_manufacture_state(1, @order.product.id).empty? ? 0 : Order.by_manufacture_state(1, @order.product.id).sum(:quantity)
+
+    total_quantity = delete_quantity +  sum_manufacture_complete - sum_manufacture_product
+    orders.each do |order|
+
+      if order.quantity <= total_quantity
+        order.manufacture_flag = 0
+        order.save
+
+        total_quantity -= order.quantity
+      end
+
+    end
+
 
     respond_to do |format|
       format.html { redirect_to(order_manufacture_path(params[:order_id], 1)) }

@@ -13,19 +13,6 @@ class Manufacture < ActiveRecord::Base
     product = self.order.product
     product.material += self.quantity
     product.save
-
-    #orders = Order.by_manufacture_state("0", product.id)
-    #
-    #sum_meterial_manufacutured = self.product.manufactures.sum(:quantity)
-    #orders.each do |order|
-    #
-    #  break if order.quantity > (sum_meterial_manufacutured - Order.by_order_complete(order.id).sum(:quantity))
-    #
-    #  order.manufacture_flag = 1
-    #  order.processing
-    #  order.save
-    #
-    #end
   end
 
   def decrement_meterial
@@ -33,20 +20,20 @@ class Manufacture < ActiveRecord::Base
     product.material -= self.quantity
     product.save
 
-    orders = Order.by_manufacture_state("1", product.id)
-
-    sum_meterial_manufacutured = self.product.manufactures.sum(:quantity)
-    orders.each do |order|
-      if order.quantity <= (sum_meterial_manufacutured - Order.by_order_complete(order.id).sum(:quantity))
-        order.manufacture_flag= "1"
-        order.processing
-        order.save
-      else
-        order.manufacture_flag= "0"
-
-        order.save
-      end
-    end
+    #orders = Order.by_manufacture_state("1", product.id)
+    #
+    #sum_meterial_manufacutured = self.product.manufactures.sum(:quantity)
+    #orders.each do |order|
+    #  if order.quantity <= (sum_meterial_manufacutured - Order.by_order_complete(order.id).sum(:quantity))
+    #    order.manufacture_flag= "1"
+    #    order.processing
+    #    order.save
+    #  else
+    #    order.manufacture_flag= "0"
+    #
+    #    order.save
+    #  end
+    #end
   end
 
 

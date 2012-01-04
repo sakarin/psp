@@ -50,20 +50,17 @@
           </p>
         </li>
         <li class="horizontal">
-          <label class="label-form" for="form"><span><b>ปั้มพิเศษ :</b></span>
-
-            <%= select("product", "pump_id", Pump.all.collect { |c| [c.name, c.id] }, {:include_blank => ''}) %>
-
-
-          </label>
+          <label class="label-form" for="form"><span><b>ปั้มพิเศษ :</b></span></label>
+          <%= select("product", "pump_id", Pump.all.collect { |c| [c.name, c.id] }, {:include_blank => ''}) %>
           <a href="<%= new_pump_path %>" id="new_pump" class="add_button"></a>
+
 
         </li>
 
         <li class="horizontal">
-          <label class="label-form" for="form"><span><b>ปั้มเส้นพับ :</b></span>
+          <label class="label-form" for="form"><span><b>ปั้มเส้นพับ :</b></span></label>
             <%= select("product", "pump_line_id", PumpLine.all.collect { |c| [c.name, c.id] }, {:include_blank => ''}) %>
-          </label>
+
           <a href="<%= new_pump_line_path %>" id="new_pump_line" class="add_button"></a>
 
         </li>
@@ -79,9 +76,9 @@
           </p>
         </li>
         <li>
-          <label class="label-form" style="margin-top:7px;" for="form"><span><b>ตัด :</b></span>
+          <label class="label-form" style="margin-top:7px;" for="form"><span><b>ตัด :</b></span></label>
             <%= select("product", "cut_id", Cut.all.collect { |c| [c.name, c.id] }, {:include_blank => ''}) %>
-          </label>
+
           <a href="<%= new_cut_path %>" id="new_cut" class="add_button"></a>
 
         </li>
@@ -106,17 +103,17 @@
           </p>
         </li>
         <li class="horizontal">
-          <label class="label-form" for="form"><span><b>เคลือบ :</b></span>
+          <label class="label-form" for="form"><span><b>เคลือบ :</b></span></label>
             <%= select("product", "coat_id", Coat.all.collect { |c| [c.name, c.id] }, {:include_blank => ''}) %>
-          </label>
+
           <a href="<%= new_coat_path %>" id="new_coat" class="add_button"></a>
 
         </li>
         <li>
 
-          <label class="label-form" for="form"><span><b>ขนาดปากถุง :</b></span>
+          <label class="label-form" for="form"><span><b>ขนาดปากถุง :</b></span></label>
             <%= select("product", "mouth_id", Mouth.all.collect { |c| [c.name, c.id] }, {:include_blank => ''}) %>
-          </label>
+
           <a href="<%= new_mouth_path %>" id="new_mouth" class="add_button"></a>
         </li>
         <li>

@@ -88,7 +88,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  cancan
+  cancan (= 1.6.4)
   devise
   jquery-rails
   pdfkit

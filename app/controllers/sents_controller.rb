@@ -1,4 +1,5 @@
 class SentsController < ApplicationController
+  authorize_resource
 
   before_filter :load_sents, :only => [:show]
 

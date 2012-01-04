@@ -37,6 +37,32 @@
             }
         });
 
+        $("#order_end_date_flag").click(function() {
+            if ($('#order_end_date_flag').attr('checked')){
+
+                $("#order_end_date_3i").attr('disabled','disabled');
+                $("#order_end_date_3i").css("color", "white");
+
+                $("#order_end_date_2i").attr('disabled','disabled');
+                $("#order_end_date_2i").css("color", "white");
+
+                $("#order_end_date_1i").attr('disabled','disabled');
+                $("#order_end_date_1i").css("color", "white");
+            }else{
+
+                $("#order_end_date_3i").attr('disabled', false);
+                $("#order_end_date_3i").css("color", "#990000");
+
+                $("#order_end_date_2i").attr('disabled', false);
+                $("#order_end_date_2i").css("color", "#990000");
+
+                $("#order_end_date_1i").attr('disabled', false);
+                $("#order_end_date_1i").css("color", "#990000");
+            }
+        });
+
+
+
 
 
     });
@@ -81,7 +107,6 @@
           <p>
             <label class="label-form" style="margin-top:7px;" for="form"><span><b>ชื่อลูกค้า :</b></span>
               <%= f.select("customer_id", Customer.all.collect { |u| [u.name, u.id] }, options ={:prompt => "-- กดเพื่อเลือกลูกค้า --"}) %>
-              <%#= link_to "เพิ่มลูกค้า", "/customers/fancy", :id => "new_customer" %>
             </label>
 
           </p>
@@ -104,11 +129,22 @@
             </label>
           </p>
         </li>
+         <li>
+          <p>
+            <label class="label-form" for="form"><span><b></b></span></label>
+            <%= f.check_box :end_date_flag, :style => "vertical-align: middle;" %>
+            <label class="label-form" for="form" style="padding-left: 5px;"><b>ไม่มีกำหนดส่งงาน</b></label>
+          </p>
+
+        </li>
         <li>
           <p>
-            <label class="label-form" for="form"><span><b>กำหนดส่ง :</b></span>
-              <%= f.date_select :end_date, :style => "color: #FFFFFF" %>
-
+            <label class="label-form" for="form"><span><b>วันที่ส่ง :</b></span>
+              <% if @order.end_date_flag == 0 %>
+                <%= f.date_select :end_date, {:class => "combo-date"} %>
+              <% else %>
+                <%= f.date_select :end_date, {:class => "combo-date"}, :style => "color: white;",:disabled => "true"%>
+              <% end %>
             </label>
           </p>
         </li>

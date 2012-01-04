@@ -2,12 +2,14 @@ class Invoice < ActiveRecord::Base
   #attr_accessible :line_items
 
 
-  belongs_to :factory
+  belongs_to :factory, :dependent => :destroy
   has_many :line_items
 
   #default_scope :order => 'created_at DESC'
 
   has_many :state_events, :as => :stateful
+
+
 
   scope :by_factory, lambda { |factory_id|
     joins(" INNER JOIN factory_systems ON invoices.id = factory_systems.invoice_id").
@@ -35,6 +37,8 @@ class Invoice < ActiveRecord::Base
   def process_complete
 
   end
+
+
 
 
 

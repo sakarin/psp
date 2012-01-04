@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   #attr_accessor :username
   #attr_accessible :username
 
-  validates_presence_of :name, :username, :password_confirmation
+  validates_presence_of :name, :username
 
   #---------------------------------------------------------------
   #- CanCan
@@ -22,7 +22,8 @@ class User < ActiveRecord::Base
 
   scope :with_role, lambda { |role| {:conditions => "roles_mask & #{2**ROLES.index(role.to_s)} > 0 "} }
 
-  ROLES = %w[admin moderator]
+  ROLES = %w[admin can_orders can_manufactures can_factories can_stocks can_sents can_database can_history can_setting]
+
 
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.sum
@@ -35,6 +36,7 @@ class User < ActiveRecord::Base
   def role?(role)
     roles.include? role.to_s
   end
+
   #---------------------------------------------------------------
   
   protected

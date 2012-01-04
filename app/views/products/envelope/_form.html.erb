@@ -44,9 +44,9 @@
         </p>
     </li>
     <li class="horizontal">
-        <label class="label-form"  for="form"><span><b>ปั้มพิเศษ :</b></span>
+        <label class="label-form"  for="form"><span><b>ปั้มพิเศษ :</b></span></label>
         <%= select("product", "pump_id", Pump.all.collect{|c| [ c.name, c.id]}, {:include_blank => ''}) %>
-        </label>
+
         <a href="<%= new_pump_path %>" id="new_pump" class="add_button"></a>
 
     </li>
@@ -72,9 +72,9 @@
     </li>
    
     <li class="horizontal">
-        <label class="label-form"  for="form"><span><b>เคลือบ :</b></span>
+        <label class="label-form"  for="form"><span><b>เคลือบ :</b></span></label>
           <%= select("product", "coat_id", Coat.all.collect{|c| [ c.name, c.id]}, {:include_blank => ''}) %>
-        </label>
+
         <a href="<%= new_coat_path %>" id="new_coat" class="add_button"></a>
 
     </li>

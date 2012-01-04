@@ -1,7 +1,7 @@
 class Factory < ActiveRecord::Base
 
-  has_many :invoices
-  has_many :orders , :through => :factory_systems
+  has_many :invoices, :dependent => :destroy
+
   has_many :stocks
 
 

@@ -18,9 +18,11 @@ gem "wkhtmltopdf-binary"
 
 gem 'rake', '0.8.7'
 
-gem "cancan"
+gem "cancan", '1.6.4'
 
 gem "silent-postgres"
+
+
 
 #gem "mysql2" ,'< 0.3'
 

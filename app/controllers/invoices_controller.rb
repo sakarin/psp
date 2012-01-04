@@ -1,5 +1,5 @@
 class InvoicesController < ApplicationController
-
+  authorize_resource
   before_filter :load_orders
 
 
@@ -47,23 +47,29 @@ class InvoicesController < ApplicationController
   def update
     @invoice = Invoice.find(params[:id])
 
-    @invoice.print_factory
+
     unless params[:invoice].nil?
 
       params[:invoice][:order_ids].each do |id|
         @line_item = LineItem.where("invoice_id = ? AND order_id = ?", @invoice.id, id).last
 
-        difference = (params[:invoice][:quantity][id]).to_i - (@line_item.quantity).to_i
+        if (params[:invoice][:quantity][id]).to_i <= @line_item.product.material
+          difference = (params[:invoice][:quantity][id]).to_i - (@line_item.quantity).to_i
 
-        @line_item.quantity = params[:invoice][:quantity][id]
-        @line_item.save
+          @line_item.quantity = params[:invoice][:quantity][id]
+          @line_item.save
 
 
-        product = @line_item.order.product
-        product.material -= difference
-        product.save
+          product = @line_item.order.product
+          product.material -= difference
+          product.save
 
-        flash.notice = t('invoice.update')
+          @invoice.print_factory
+
+          flash.notice = t('invoice.update')
+        else
+          flash.alert = t('invoice.error')
+        end
       end
 
     end

@@ -1,3 +1,5 @@
+
+
 <div class="menu-head-content">
   <ul>
     <li><a href="#"><strong>การจัดส่งโรงงาน</strong></a></li>
@@ -32,7 +34,8 @@
     <% count_order = false %>
     <tbody class="tabel-data-body">
     <% @orders.each do |order| %>
-        <% if order.quantity > order.line_items.sum(:quantity) and order.product.material > 0 %>
+        <%# if order.quantity > order.line_items.sum(:quantity) and order.product.material > 0 %>
+        <% if order.invoice_flag == 0 and order.product.material > 0 %>
             <% count_order = true %>
             <tr class="tr-odd">
 
@@ -55,6 +58,13 @@
 
 
     </tbody>
+    <% unless count_order %>
+    <tbody class="tabel-data-body">
+      <tr>
+        <td colspan="6" style="text-align: center">- ไม่มีงานให้จัดส่งโรงงาน - </td>
+      </tr>
+    </tbody>
+    <% end %>
 
   </table>
 </div>

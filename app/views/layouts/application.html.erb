@@ -44,8 +44,8 @@
       Cufon.replace('.menu-head-content-status-label', {hover:true});
       Cufon.replace('.tabel-data-thead', {hover:true});
       Cufon.replace('.buttons', {hover:true});
-
-      Cufon.replace('label', {hover:true});
+      //Cufon.replace('label', {hover:true});
+      Cufon.replace('.label-form', {hover:true});
       Cufon.replace('.head-abel', {hover:true});
   </script>
 
@@ -61,10 +61,29 @@
         <div id="logo"></div>
         <div id="navigator">
           <ul>
-            <li><a class="nav-database" href="<%= database_path %>"></a></li>
-            <li><a class="nav-admin" href="<%= users_path %>"></a></li>
-            <li><a class="nav-history" href="/logs/"></a></li>
-            <li><a class="nav-setting" href="/configurations"></a></li>
+            <% if current_user.role? :can_database or current_user.role? :admin %>
+                <li><a class="nav-database" href="<%= database_path %>"></a></li>
+            <% else %>
+                <li><a class="nav-database" href="#"></a></li>
+            <% end %>
+            <% if current_user.role? :admin  %>
+                <li><a class="nav-admin" href="<%= users_path %>"></a></li>
+            <% else %>
+                <li><a class="nav-admin" href="#"></a></li>
+            <% end %>
+
+
+            <% if current_user.role? :can_history or current_user.role? :admin %>
+                <li><a class="nav-history" href="/logs/"></a></li>
+            <% else %>
+                <li><a class="nav-history" href="#"></a></li>
+            <% end %>
+
+            <% if current_user.role? :can_setting or current_user.role? :admin %>
+                <li><a class="nav-setting" href="/configurations"></a></li>
+            <% else %>
+                <li><a class="nav-setting" href="#"></a></li>
+            <% end %>
           </ul>
         </div>
       </div>

@@ -12,6 +12,9 @@ class Product < ActiveRecord::Base
   belongs_to :pump_line
   belongs_to :cut
   belongs_to :coat
+  #, :dependent => :destroy
+  #accepts_nested_attributes_for :coat, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true
+
   belongs_to :mouth
   belongs_to :glue
   belongs_to :customer

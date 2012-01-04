@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  #check_authorization
+ # check_authorization
 
   before_filter :write_logger
 
@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = t("errors.access_denied")
     redirect_to :back
+    #redirect_to root_url
   end
 
   def write_logger
