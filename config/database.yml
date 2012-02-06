@@ -16,7 +16,7 @@ production:
   encoding: utf8 
   database: pspwebapp
   username: root
-  password: psp 
+  password: '!knu@' 
   pool: 5 
   host: localhost
   reconnect: false
