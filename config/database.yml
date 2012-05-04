@@ -12,11 +12,11 @@ test:
   timeout: 5000
 
 production:
-  adapter: mysql2 
-  encoding: utf8 
-  database: pspwebapp
-  username: root
-  password: '!knu@' 
-  pool: 5 
-  host: localhost
-  reconnect: false
+    adapter: mysql2 
+    encoding: utf8 
+    database: pspwebapp
+    username: pspdb
+    password: 'pspwebapp' 
+    pool: 5 
+    host: 77.68.63.19
+    reconnect: false

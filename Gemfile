@@ -24,7 +24,11 @@ gem "silent-postgres"
 
 
 
-#gem "mysql2" ,'< 0.3'
+group :production do
+
+  gem 'mysql2','< 0.3'
+
+end
 
 
 
